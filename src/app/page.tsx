@@ -24,14 +24,14 @@ const styled = {
   }),
 
   blogTitle: css({
-    fontSize: '2rem',
+    fontSize: '4xl',
     fontWeight: 'bold',
     color: 'zinc.300',
   }),
 
   comment: css({
     fontSize: '1rem',
-    color: 'zinc.400',
+    color: 'text5',
     textAlign: 'center',
   })
 }

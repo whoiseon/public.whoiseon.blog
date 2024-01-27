@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" data-theme='dark'>
       <body className={css({ bg: 'zinc.900' })}>{children}</body>
     </html>
   );
