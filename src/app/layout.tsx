@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import {css} from "@/styled-system/css";
 import "./globals.css";
+import {css} from "@styled-system/css";
 
 export const metadata: Metadata = {
   title: "기록은 나의 빛",
@@ -13,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={css({ bg: 'red.500' })}>{children}</body>
+    <html lang="ko">
+      <body className={css({ bg: 'zinc.900' })}>{children}</body>
     </html>
   );
 }

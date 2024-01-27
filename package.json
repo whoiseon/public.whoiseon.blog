@@ -8,17 +8,15 @@
     "build": "next build",
     "start": "next start -p 8080",
     "start:pm2": "pm2 start yarn --name blog -- start",
-    "lint": "next lint",
-    "panda": "panda",
-    "panda:dev": "panda --watch"
+    "lint": "next lint"
   },
   "dependencies": {
-    "@pandacss/dev": "^0.28.0",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@pandacss/dev": "^0.28.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

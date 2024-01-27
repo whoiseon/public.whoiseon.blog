@@ -1,13 +1,39 @@
-import styles from '@/app/page.module.css';
+import { css } from '@styled-system/css';
 
-export default function Home() {
+function Home() {
   return (
-    <div className={styles.block}>
-      <h1 className={styles.blogName}>기록은 나의 빛.</h1>
-      <div className={styles.comment}>
-        <p>주니어 프론트엔드 개발자의 문제 해결 과정에서 겪는 일들 그리고,</p>
-        <p>성장하기 위한 다양한 몸부림을 준비중입니다!</p>
-      </div>
+    <div className={styled.block}>
+      <h1 className={styled.blogTitle}>기록은 나의 빛</h1>
+      <p className={styled.comment}>
+        주니어 프론트엔드 개발자의 문제해결 과정을 기록하는 블로그입니다. <br />
+        현재 블로그는 개발 중입니다.
+      </p>
     </div>
   )
 }
+
+const styled = {
+  block: css({
+    width: '100dvw',
+    height: '100dvh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDir: 'column',
+    gap: '1rem'
+  }),
+
+  blogTitle: css({
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    color: 'zinc.300',
+  }),
+
+  comment: css({
+    fontSize: '1rem',
+    color: 'zinc.400',
+    textAlign: 'center',
+  })
+}
+
+export default Home;
