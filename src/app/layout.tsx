@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" data-theme='dark'>
-      <body className={css({ bg: 'zinc.900' })}>{children}</body>
+      <body className={css({ bg: 'bg' })}>{children}</body>
     </html>
   );
 }
