@@ -2,6 +2,7 @@
 
 import { css } from '@styled-system/css';
 import Image from 'next/image';
+import { useState } from 'react';
 
 export interface TestPost {
   postId: number;
@@ -24,12 +25,26 @@ interface Props {
 function Card({ post }: Props) {
   const { title, description, createdAt, tags, thumbnail } = post;
 
+  const [cardHover, setCardHover] = useState<boolean>(false);
+
+  const onMouseCard = () => {
+    setCardHover(true);
+  };
+
+  const onLeaveCard = () => {
+    setCardHover(false);
+  };
+
   return (
-    <div className={block}>
+    <div
+      className={block}
+      onMouseEnter={onMouseCard}
+      onMouseLeave={onLeaveCard}
+    >
       <div className={thumbnailBox}>
         {thumbnail ? (
           <Image
-            className={thumbnailStyle}
+            className={`${thumbnailStyle} ${cardHover ? thumbnailAnimation : ''}`}
             src={thumbnail}
             alt={title}
             width={250}
@@ -42,13 +57,14 @@ function Card({ post }: Props) {
       </div>
       <div className={postInfoBox}>
         <h3
-          className={css({
+          className={`${css({
             fontSize: 'xl',
-            fontWeight: 'bold',
+            fontWeight: 'semibold',
             lineHeight: '1.5',
             lineClamp: 2,
+            transition: 'all 0.2s ease-in-out',
             sm: { fontSize: '2xl' },
-          })}
+          })} ${cardHover ? titleAnimation : ''}`}
         >
           {title}
         </h3>
@@ -121,6 +137,11 @@ const thumbnailStyle = css({
   transition: 'all 0.2s ease-in-out',
 });
 
+const thumbnailAnimation = css({
+  transform: 'translateY(-10px)',
+  boxShadow: '0 10px 16px 0 rgba(0,0,0,0.1)',
+});
+
 const emptyThumbnailStyle = css({
   width: '100%',
   height: '100%',
@@ -128,6 +149,10 @@ const emptyThumbnailStyle = css({
   border: '1px solid',
   borderColor: 'outline1',
   transition: 'all 0.2s ease-in-out',
+});
+
+const titleAnimation = css({
+  color: 'primary1',
 });
 
 const postInfoBox = css({

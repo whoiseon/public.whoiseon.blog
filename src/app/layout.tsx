@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 import Providers from '@/components/system/Providers';
 import Header from '@/components/base/Header';
 import { container, containerRaw } from '@/lib/styles/container';
+import Footer from '@/components/base/Footer';
 
 export const metadata: Metadata = {
   title: '기록은 나의 빛',
@@ -25,6 +26,7 @@ export default function RootLayout({
           <div className={rootBlock}>
             <Header />
             <div className={mainBlock}>{children}</div>
+            <Footer />
           </div>
         </Providers>
       </body>
@@ -45,6 +47,7 @@ const rootBlock = css({
 const mainStyle = css.raw({
   flex: 1,
   width: '100%',
+  mb: 20,
 });
 
 const mainBlock = css(mainStyle, containerRaw);

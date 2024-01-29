@@ -63,11 +63,28 @@ function Home() {
     <main className={block}>
       <h1 className={typography}>최신</h1>
       <div className={contentBox}>
-        <ul className={tagBox}>
-          {dummyTagList.map((tag) => (
-            <TagItem key={tag.id} name={tag.name} />
-          ))}
-        </ul>
+        <div className={tagBox}>
+          <ul
+            className={css({
+              display: 'flex',
+              flexDirection: 'row',
+              width: '100%',
+              gap: 2,
+              pl: 3,
+              pr: 4,
+              md: {
+                width: '140px',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                px: 0,
+              },
+            })}
+          >
+            {dummyTagList.map((tag) => (
+              <TagItem key={tag.id} name={tag.name} />
+            ))}
+          </ul>
+        </div>
         <div className={postBox}>
           {dummyPostList.map((post) => (
             <Link href={`/posts/${post.title}`} key={post.postId}>
@@ -83,6 +100,7 @@ function Home() {
 const block = css({
   mx: 'auto',
   maxWidth: '4xl',
+  height: '100%',
 });
 
 const typography = css({
@@ -104,10 +122,12 @@ const typography = css({
 const contentBox = css({
   display: 'flex',
   flexDir: 'column',
+  height: '100%',
   gap: 4,
   md: {
     gap: 8,
     flexDir: 'row-reverse',
+    alignItems: 'flex-start',
   },
 });
 
@@ -124,20 +144,20 @@ const postBox = css({
 });
 
 const tagBox = css({
+  position: 'relative',
   display: 'flex',
-  flexDirection: 'row',
-  width: '100%',
-  gap: 2,
+  alignItems: 'center',
+  height: '40px',
   overflowX: 'auto',
   scrollbarWidth: 'none',
   scrollBehavior: 'smooth',
-  pl: 3,
-  pr: 4,
+  bg: 'bg_page1',
+  zIndex: 10,
   md: {
-    width: '140px',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    px: 0,
+    height: 'auto',
+    alignItems: 'self-start',
+    position: 'sticky',
+    top: '78px',
   },
 });
 
