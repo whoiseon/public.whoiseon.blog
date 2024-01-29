@@ -26,16 +26,16 @@ function Footer() {
 
 const styledFooter = css({
   width: '100%',
-  pt: 6,
-  pb: 20,
+  pt: 4,
+  pb: 10,
   bg: 'bg_page1',
   color: 'text2',
   fontSize: 'sm',
   textAlign: 'center',
 
   md: {
-    pt: 6,
-    pb: 20,
+    pt: 4,
+    pb: 10,
   },
 });
 
