@@ -1,3 +1,5 @@
+'use client';
+
 import { css } from '@styled-system/css';
 import Image from 'next/image';
 
@@ -31,14 +33,60 @@ function Card({ post }: Props) {
             src={thumbnail}
             alt={title}
             width={250}
-            height={150}
+            height={165}
             placeholder="empty"
           />
         ) : (
           <div className={emptyThumbnailStyle} />
         )}
       </div>
-      <div className={postInfoBox}></div>
+      <div className={postInfoBox}>
+        <h3
+          className={css({
+            fontSize: 'xl',
+            fontWeight: 'bold',
+            lineHeight: '1.5',
+            lineClamp: 2,
+            sm: { fontSize: '2xl' },
+          })}
+        >
+          {title}
+        </h3>
+        {description && (
+          <p
+            className={css({
+              lineHeight: '1.5rem',
+              color: 'text4',
+              mt: 1,
+              lineClamp: 2,
+              md: {
+                lineClamp: 3,
+                lineHeight: '1.5rem',
+              },
+            })}
+          >
+            {description}
+          </p>
+        )}
+        <div
+          className={css({
+            minHeight: '1rem',
+            flex: 1,
+            sm: {
+              minHeight: '0',
+            },
+          })}
+        />
+        <span
+          className={css({
+            fontSize: 'sm',
+            color: 'text6',
+            fontWeight: 'normal',
+          })}
+        >
+          {createdAt}
+        </span>
+      </div>
     </div>
   );
 }
@@ -46,15 +94,19 @@ function Card({ post }: Props) {
 const block = css({
   display: 'flex',
   flexDirection: 'column',
-  gap: 12,
+  gap: 4,
+  sm: {
+    flexDirection: 'row',
+    gap: 8,
+  },
 });
 
 const thumbnailBox = css({
   position: 'relative',
   flexShrink: 0,
   sm: {
-    width: '200px',
-    height: '150px',
+    width: '220px',
+    height: '165px',
   },
   md: {
     width: '250px',
@@ -81,7 +133,8 @@ const emptyThumbnailStyle = css({
 const postInfoBox = css({
   display: 'flex',
   flexDirection: 'column',
-  gap: 2,
+  justifyContent: 'space-between',
+  flex: '1',
 });
 
 export default Card;

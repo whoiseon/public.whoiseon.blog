@@ -41,7 +41,7 @@ const dummyPostList: TestPost[] = [
     title: 'React 18이 애플리케이션 성능을 향상시키는 방법',
     tags: [{ id: 1, name: 'react' }],
     description:
-      'React 18 어떤 점이 애플리케이션 성능 향상에 도움이 될까요? Vercel 블로그 글을 옮기며 정리해보았습니다.',
+      'React 18 어떤 점이 애플리케이션 성능 향상에 도움이 될까요? Vercel 블로그 글을 옮기며 정리해보았습니다.React 18 어떤 점이 애플리케이션 성능 향상에 도움이 될까요? Vercel 블로그 글을 옮기며 정리해보았습니다.React 18 어떤 점이 애플리케이션 성능 향상에 도움이 될까요? Vercel 블로그 글을 옮기며 정리해보았습니다.',
     createdAt: '2024-01-09',
     thumbnail:
       'https://static.toss.im/assets/payments/contents/spring-thumb.jpg',
@@ -106,6 +106,7 @@ const contentBox = css({
   flexDir: 'column',
   gap: 4,
   md: {
+    gap: 8,
     flexDir: 'row-reverse',
   },
 });
@@ -115,8 +116,10 @@ const postBox = css({
   display: 'flex',
   flexDir: 'column',
   px: 4,
+  gap: 10,
   md: {
     px: 0,
+    gap: 16,
   },
 });
 
