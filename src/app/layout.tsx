@@ -20,7 +20,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const user = await getUser();
-  const { isAdmin, address } = getIsAdmin();
+  const { isAdmin } = getIsAdmin();
 
   return (
     <html lang="ko" data-theme="dark" suppressHydrationWarning>
@@ -30,7 +30,6 @@ export default async function RootLayout({
             <div className={rootBlock}>
               <Header isAdmin={isAdmin} />
               <div className={mainBlock}>{children}</div>
-              <div>{address}</div>
               <Footer />
             </div>
           </UserStoreProvider>

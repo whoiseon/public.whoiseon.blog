@@ -72,8 +72,9 @@ export const authOptions: NextAuthOptions = {
   ],
 };
 
-export type AuthErrors = 'AccessDenied';
+export type AuthErrors = 'AccessDenied' | 'undefined';
 
 export const authErrors: Record<AuthErrors, string> = {
   AccessDenied: '잘못된 계정 정보입니다.',
+  undefined: '알 수 없는 오류가 발생했습니다.',
 };

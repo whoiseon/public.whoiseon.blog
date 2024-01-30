@@ -51,7 +51,13 @@ export default defineConfig({
         destructive1: {
           value: {
             _light: '{colors.red.400}',
-            _dark: '{colors.red.500}',
+            _dark: 'rgb(180, 68, 68)',
+          },
+        },
+        text_reverse: {
+          value: {
+            _light: '{colors.zinc.900}',
+            _dark: '{colors.zinc.100}',
           },
         },
         text1: {

@@ -71,8 +71,8 @@ const DropdownMenuItem = React.forwardRef<
       bg: 'transparent',
       transition: 'all 0.16s ease-in-out',
       _hover: {
-        bg: 'primary1',
-        color: 'white',
+        bg: 'bg_element2',
+        color: 'text_reverse',
       },
       outline: 'none',
     })} ${className}`}

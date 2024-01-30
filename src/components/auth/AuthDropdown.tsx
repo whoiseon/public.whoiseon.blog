@@ -43,6 +43,9 @@ function AuthDropdown({ className }: Props) {
             className={css({
               _hover: {
                 bg: 'destructive1 !important',
+                _light: {
+                  color: 'white',
+                },
               },
             })}
             onClick={() => signOut()}
