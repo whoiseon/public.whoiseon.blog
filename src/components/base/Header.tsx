@@ -5,14 +5,16 @@ import { css } from '@styled-system/css';
 import Logo from '@/components/system/Logo';
 import ThemeToggle from '@/components/system/ThemeToggle';
 import Button from '@/components/system/Button';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import { Session } from 'next-auth';
+import { useUser, useUserStore } from '@/lib/store/useUser';
 
 interface Props {
   isAdmin: boolean;
 }
 
 function Header({ isAdmin }: Props) {
-  const { data: session } = useSession();
+  const { user } = useUser();
 
   return (
     <header className={block}>
@@ -21,11 +23,16 @@ function Header({ isAdmin }: Props) {
         <div className={navBlock}>
           <nav className={styledNav}>
             <ThemeToggle />
-            {isAdmin && (
-              <Button href="/auth/signin" size="sm">
-                로그인
-              </Button>
-            )}
+            {isAdmin &&
+              (user ? (
+                <Button type="button" onClick={() => signOut()} size="md">
+                  로그아웃
+                </Button>
+              ) : (
+                <Button href="/auth/signin" size="md">
+                  로그인
+                </Button>
+              ))}
           </nav>
         </div>
       </div>

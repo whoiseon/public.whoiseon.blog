@@ -3,11 +3,11 @@ import './globals.css';
 import { css } from '@styled-system/css';
 import Providers from '@/components/system/Providers';
 import Header from '@/components/base/Header';
-import { container, containerRaw } from '@/lib/styles/container';
+import { containerRaw } from '@/lib/styles/container';
 import Footer from '@/components/base/Footer';
 import getIsAdmin from '@/app/_actions/getIsAdmin';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import UserStoreProvider from '@/components/auth/UserStoreProvider';
+import getUser from '@/app/_actions/getUser';
 
 export const metadata: Metadata = {
   title: '기록은 나의 빛',
@@ -19,20 +19,20 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(authOptions);
+  const user = await getUser();
   const isAdmin = getIsAdmin();
-
-  console.log(session);
 
   return (
     <html lang="ko" data-theme="dark" suppressHydrationWarning>
       <body className={styledBody}>
         <Providers>
-          <div className={rootBlock}>
-            <Header isAdmin={isAdmin} />
-            <div className={mainBlock}>{children}</div>
-            <Footer />
-          </div>
+          <UserStoreProvider user={user}>
+            <div className={rootBlock}>
+              <Header isAdmin={isAdmin} />
+              <div className={mainBlock}>{children}</div>
+              <Footer />
+            </div>
+          </UserStoreProvider>
         </Providers>
       </body>
     </html>
