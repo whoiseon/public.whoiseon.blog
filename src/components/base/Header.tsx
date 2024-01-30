@@ -14,7 +14,6 @@ interface Props {
 
 function Header({ isAdmin }: Props) {
   const { user } = useUser();
-
   return (
     <header className={block}>
       <div className={headerInner}>

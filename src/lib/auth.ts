@@ -1,7 +1,22 @@
 import type { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import db from '@/lib/db';
 
 export const authOptions: NextAuthOptions = {
+  pages: {
+    error: '/auth/error',
+  },
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      const findUser = await db.user.findUnique({
+        where: {
+          email: user?.email as string,
+        },
+      });
+
+      return !!findUser;
+    },
+  },
   cookies: {
     sessionToken: {
       name: 'imslow.session_token',
@@ -35,4 +50,10 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     }),
   ],
+};
+
+export type AuthErrors = 'AccessDenied';
+
+export const authErrors: Record<AuthErrors, string> = {
+  AccessDenied: '잘못된 계정 정보입니다.',
 };
