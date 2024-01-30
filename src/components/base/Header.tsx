@@ -4,15 +4,28 @@ import { containerRaw } from '@/lib/styles/container';
 import { css } from '@styled-system/css';
 import Logo from '@/components/system/Logo';
 import ThemeToggle from '@/components/system/ThemeToggle';
+import Button from '@/components/system/Button';
+import { useSession } from 'next-auth/react';
 
-function Header() {
+interface Props {
+  isAdmin: boolean;
+}
+
+function Header({ isAdmin }: Props) {
+  const { data: session } = useSession();
+
   return (
     <header className={block}>
       <div className={headerInner}>
         <Logo />
         <div className={navBlock}>
           <nav className={styledNav}>
-            <ThemeToggle className={css({ mr: '-8px' })} />
+            <ThemeToggle />
+            {isAdmin && (
+              <Button href="/auth/signin" size="sm">
+                로그인
+              </Button>
+            )}
           </nav>
         </div>
       </div>
@@ -53,6 +66,7 @@ const navBlock = css({
 const styledNav = css({
   display: 'flex',
   alignItems: 'center',
+  mr: '-8px',
 });
 
 export default Header;
