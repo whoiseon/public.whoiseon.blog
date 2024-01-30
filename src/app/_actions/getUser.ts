@@ -1,8 +1,8 @@
 'use server';
 
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { User } from '@/lib/store/useUser';
+import { authOptions } from '@/lib/auth';
 
 async function getUser() {
   let user: User | null = null;
