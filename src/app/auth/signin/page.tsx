@@ -1,5 +1,7 @@
+import AuthForm from '@/components/auth/AuthForm';
+
 function Sign() {
-  return <div>123</div>;
+  return <AuthForm />;
 }
 
 export default Sign;
