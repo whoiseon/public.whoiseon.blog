@@ -14,6 +14,26 @@ export const authOptions: NextAuthOptions = {
         },
       });
 
+      if (findUser) {
+        await db.signInLog.create({
+          data: {
+            email: user?.email as string,
+            name: user?.name as string,
+            caution: false,
+            ip: '',
+          },
+        });
+      } else {
+        await db.signInLog.create({
+          data: {
+            email: user?.email as string,
+            name: user?.name as string,
+            caution: true,
+            ip: '',
+          },
+        });
+      }
+
       return !!findUser;
     },
   },
