@@ -26,10 +26,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
+.env.development
 
 # env files
-.env
+.env.development
+.env.production
 
 # vercel
 .vercel
