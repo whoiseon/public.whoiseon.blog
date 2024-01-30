@@ -50,6 +50,11 @@ function Card({ post }: Props) {
             width={250}
             height={165}
             placeholder="empty"
+            decoding="async"
+            loading="lazy"
+            style={{
+              color: 'transparent',
+            }}
           />
         ) : (
           <div className={emptyThumbnailStyle} />
@@ -134,6 +139,7 @@ const thumbnailStyle = css({
   width: '100%',
   height: '100%',
   objectFit: 'cover',
+  overflow: 'hidden',
   transition: 'all 0.2s ease-in-out',
 });
 

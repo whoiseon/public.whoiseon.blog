@@ -4,8 +4,16 @@ import { signIn } from 'next-auth/react';
 import Button from '@/components/system/Button';
 import { css } from '@styled-system/css';
 import { Icons } from '@/components/system/Icons';
+import { useUser } from '@/lib/store/useUser';
+import { redirect } from 'next/navigation';
 
 function AuthBox() {
+  const { user } = useUser();
+
+  if (user) {
+    redirect('/');
+  }
+
   return (
     <div className={block}>
       <Button

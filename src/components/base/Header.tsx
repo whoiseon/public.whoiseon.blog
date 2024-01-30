@@ -5,8 +5,6 @@ import { css } from '@styled-system/css';
 import Logo from '@/components/system/Logo';
 import ThemeToggle from '@/components/system/ThemeToggle';
 import Button from '@/components/system/Button';
-import { signOut, useSession } from 'next-auth/react';
-import { Session } from 'next-auth';
 import { useUser, useUserStore } from '@/lib/store/useUser';
 import AuthDropdown from '@/components/auth/AuthDropdown';
 
@@ -43,7 +41,7 @@ const block = css({
   position: 'sticky',
   top: 0,
   zIndex: 40,
-  bg: 'bg_page1',
+  bg: 'bg_page1_alpha',
   backdropFilter: 'blur(3px)',
   width: '100%',
   borderBottom: '1px solid',

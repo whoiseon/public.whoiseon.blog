@@ -38,6 +38,7 @@ const DropdownMenuContent = React.forwardRef<
         bg: 'bg_page1',
         shadow: 'shadow1',
         p: '2',
+        animation: 'slideInDown 0.16s ease-out',
       })} ${className}`}
       {...props}
     />

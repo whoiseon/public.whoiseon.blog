@@ -93,7 +93,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       return (
         <Link
           href={href}
-          className={`${className} ${button({ variant, size })}`}
+          className={`${button({ variant, size })} ${className}`}
         >
           {children}
         </Link>
@@ -102,7 +102,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <button
-        className={`${className} ${button({ variant, size })}`}
+        className={`${button({ variant, size })} ${className}`}
         ref={ref}
         {...rest}
       >

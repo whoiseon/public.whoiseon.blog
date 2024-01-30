@@ -42,7 +42,7 @@ function AuthDropdown({ className }: Props) {
           <DropdownMenuItem
             className={css({
               _hover: {
-                bg: 'red.500',
+                bg: 'destructive1 !important',
               },
             })}
             onClick={() => signOut()}

@@ -16,13 +16,42 @@ export default defineConfig({
 
   // Useful for theme customization
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        slideInDown: {
+          from: {
+            opacity: 0,
+            transform: 'translateY(-20px)',
+          },
+          to: {
+            opacity: 1,
+            transform: 'translateY(0)',
+          },
+        },
+        slideOutUp: {
+          from: {
+            opacity: 1,
+            transform: 'translateY(0)',
+          },
+          to: {
+            opacity: 0,
+            transform: 'translateY(-100%)',
+          },
+        },
+      },
+    },
     semanticTokens: {
       colors: {
         primary1: {
           value: {
             _light: '{colors.blue.400}',
             _dark: '{colors.blue.500}',
+          },
+        },
+        destructive1: {
+          value: {
+            _light: '{colors.red.400}',
+            _dark: '{colors.red.500}',
           },
         },
         text1: {
@@ -83,6 +112,12 @@ export default defineConfig({
           value: {
             _light: '{colors.white}',
             _dark: '{colors.zinc.900}',
+          },
+        },
+        bg_page1_alpha: {
+          value: {
+            _light: 'rgba(255, 255, 255, 0.9)',
+            _dark: 'rgba(24, 24, 27, 0.9)',
           },
         },
         bg_page2: {
