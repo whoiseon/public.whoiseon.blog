@@ -13,7 +13,10 @@ function getIsAdmin() {
     ',',
   )[0];
 
-  return adminAddressList.includes(connectAddress);
+  return {
+    isAdmin: adminAddressList.includes(connectAddress),
+    address: connectAddress,
+  };
 }
 
 export default getIsAdmin;
