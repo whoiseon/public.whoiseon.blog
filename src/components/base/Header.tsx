@@ -8,6 +8,7 @@ import Button from '@/components/system/Button';
 import { signOut, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 import { useUser, useUserStore } from '@/lib/store/useUser';
+import AuthDropdown from '@/components/auth/AuthDropdown';
 
 interface Props {
   isAdmin: boolean;
@@ -25,9 +26,7 @@ function Header({ isAdmin }: Props) {
             <ThemeToggle />
             {isAdmin &&
               (user ? (
-                <Button type="button" onClick={() => signOut()} size="md">
-                  로그아웃
-                </Button>
+                <AuthDropdown />
               ) : (
                 <Button href="/auth/signin" size="md">
                   로그인

@@ -5,6 +5,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/system/DropdownMenu';
 import Button from '@/components/system/Button';
@@ -70,6 +71,7 @@ function ThemeToggle({ className }: Props) {
               })}
             />
           </DropdownMenuItem>
+          <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setTheme('dark')}>
             <span>Dark</span>
             <Icons.Moon

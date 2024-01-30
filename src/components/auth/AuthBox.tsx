@@ -3,8 +3,9 @@
 import { signIn } from 'next-auth/react';
 import Button from '@/components/system/Button';
 import { css } from '@styled-system/css';
+import { Icons } from '@/components/system/Icons';
 
-function AuthForm() {
+function AuthBox() {
   return (
     <div className={block}>
       <Button
@@ -13,11 +14,13 @@ function AuthForm() {
         className={css({
           w: 'full',
           borderRadius: 0,
-          fontWeight: 'bold',
+          fontWeight: 'normal',
+          gap: '0 0.5rem',
         })}
         onClick={() => signIn('google', { callbackUrl: '/' })}
       >
-        로그인
+        <Icons.Google className={css({ w: '26px', h: '26px' })} />
+        구글 계정으로 로그인하기
       </Button>
     </div>
   );
@@ -25,6 +28,7 @@ function AuthForm() {
 
 const block = css({
   display: 'flex',
+  flexDirection: 'column',
   mx: 'auto',
   maxWidth: 'sm',
   pt: 4,
@@ -34,4 +38,4 @@ const block = css({
   },
 });
 
-export default AuthForm;
+export default AuthBox;

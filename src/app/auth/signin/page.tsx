@@ -1,7 +1,7 @@
-import AuthForm from '@/components/auth/AuthForm';
+import AuthBox from '@/components/auth/AuthBox';
 
 function SignIn() {
-  return <AuthForm />;
+  return <AuthBox />;
 }
 
 export default SignIn;
