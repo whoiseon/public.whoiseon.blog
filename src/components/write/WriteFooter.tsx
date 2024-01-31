@@ -1,6 +1,6 @@
 import { css } from '@styled-system/css';
 import Button from '@/components/system/Button';
-import { MdArrowBack } from 'react-icons/md';
+import { MdArrowBack } from '@react-icons/all-files/md/MdArrowBack';
 import { useGoBack } from '@/lib/hooks/useGoBack';
 
 interface Props {

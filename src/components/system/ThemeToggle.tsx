@@ -10,7 +10,8 @@ import {
 } from '@/components/system/DropdownMenu';
 import Button from '@/components/system/Button';
 import { Icons } from '@/components/system/Icons';
-import { IoSunny, IoMoon } from 'react-icons/io5';
+import { IoMdSunny } from '@react-icons/all-files/io/IoMdSunny';
+import { IoMdMoon } from '@react-icons/all-files/io/IoMdMoon';
 
 import { css } from '@styled-system/css';
 
@@ -26,7 +27,7 @@ function ThemeToggle({ className }: Props) {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="default" size="icon_md">
-            <IoSunny
+            <IoMdSunny
               className={css({
                 width: '26px',
                 height: '26px',
@@ -43,7 +44,7 @@ function ThemeToggle({ className }: Props) {
                 },
               })}
             />
-            <IoMoon
+            <IoMdMoon
               className={css({
                 position: 'absolute',
                 width: '24px',
@@ -66,7 +67,7 @@ function ThemeToggle({ className }: Props) {
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => setTheme('light')}>
             <span>Light</span>
-            <IoSunny
+            <IoMdSunny
               className={css({
                 width: '22px',
                 height: '22px',
@@ -76,7 +77,7 @@ function ThemeToggle({ className }: Props) {
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setTheme('dark')}>
             <span>Dark</span>
-            <IoMoon
+            <IoMdMoon
               className={css({
                 width: '22px',
                 height: '22px',
