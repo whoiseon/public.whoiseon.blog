@@ -2,6 +2,7 @@
 
 import { headers } from 'next/headers';
 import process from 'process';
+import getUserIp from '@/app/_actions/getUserIp';
 
 function getIsAdmin() {
   const header = headers();
@@ -9,9 +10,7 @@ function getIsAdmin() {
     ';',
   );
 
-  const connectAddress = (header.get('x-forwarded-for') ?? '127.0.0.1').split(
-    ',',
-  )[0];
+  const connectAddress = getUserIp(true);
 
   return {
     isAdmin: adminAddressList.includes(connectAddress),

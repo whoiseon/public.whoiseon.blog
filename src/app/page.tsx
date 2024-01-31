@@ -81,7 +81,9 @@ function Home() {
             })}
           >
             {dummyTagList.map((tag) => (
-              <TagItem key={tag.id} name={tag.name} />
+              <li className={css({ maxWidth: '300px' })}>
+                <TagItem name={tag.name} />
+              </li>
             ))}
           </ul>
         </div>

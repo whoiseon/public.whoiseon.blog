@@ -18,6 +18,14 @@ export default defineConfig({
   theme: {
     extend: {
       keyframes: {
+        fadeIn: {
+          from: {
+            opacity: 0,
+          },
+          to: {
+            opacity: 1,
+          },
+        },
         slideInDown: {
           from: {
             opacity: 0,
@@ -48,10 +56,22 @@ export default defineConfig({
             _dark: '{colors.blue.500}',
           },
         },
+        primary2: {
+          value: {
+            _light: '{colors.blue.300}',
+            _dark: '{colors.blue.600}',
+          },
+        },
+        primary3: {
+          value: {
+            _light: '{colors.blue.200}',
+            _dark: '{colors.blue.700}',
+          },
+        },
         destructive1: {
           value: {
             _light: '{colors.red.400}',
-            _dark: 'rgb(180, 68, 68)',
+            _dark: 'rgb(200, 68, 68)',
           },
         },
         text_reverse: {
@@ -114,6 +134,12 @@ export default defineConfig({
             _dark: '{colors.zinc.900}',
           },
         },
+        button_text1: {
+          value: {
+            _light: 'white',
+            _dark: '{colors.zinc.900}',
+          },
+        },
         bg_page1: {
           value: {
             _light: '{colors.white}',
@@ -128,8 +154,20 @@ export default defineConfig({
         },
         bg_page2: {
           value: {
-            _light: '{colors.zinc.50}',
+            _light: '{colors.zinc.100}',
             _dark: '{colors.zinc.900}',
+          },
+        },
+        bg_page3: {
+          value: {
+            _light: '{colors.zinc.50}',
+            _dark: '{colors.zinc.950}',
+          },
+        },
+        bg_editor: {
+          value: {
+            _light: 'white',
+            _dark: '#121214',
           },
         },
         bg_element1: {
@@ -144,6 +182,12 @@ export default defineConfig({
             _dark: '{colors.zinc.700}',
           },
         },
+        bg_element3: {
+          value: {
+            _light: '{colors.zinc.300}',
+            _dark: '{colors.zinc.600}',
+          },
+        },
         outline1: {
           value: {
             _light: '{colors.zinc.200}',
@@ -154,6 +198,12 @@ export default defineConfig({
           value: {
             _light: '{colors.zinc.200}',
             _dark: '{colors.zinc.700}',
+          },
+        },
+        editor_footer: {
+          value: {
+            _light: 'white',
+            _dark: '{colors.zinc.800}',
           },
         },
       },

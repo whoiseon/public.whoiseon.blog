@@ -5,7 +5,6 @@ import React from 'react';
 const button = cva({
   base: {
     position: 'relative',
-    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     rounded: 'full',
@@ -25,9 +24,29 @@ const button = cva({
     },
   },
   variants: {
+    layout: {
+      inline: {
+        display: 'inline-flex',
+      },
+      fullWidth: {
+        width: '100%',
+      },
+    },
     variant: {
       default: {
         bg: 'bg_page1',
+      },
+      primary: {
+        bg: 'primary1',
+        color: 'button_text1',
+        _hover: {
+          bg: 'primary2',
+          color: 'button_text1',
+        },
+        _active: {
+          bg: 'primary3',
+          color: 'button_text1',
+        },
       },
       solid: {
         bg: 'bg_element1',
@@ -79,21 +98,30 @@ const button = cva({
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  variant?: 'default' | 'solid' | 'solidTag' | 'outline';
+  layout?: 'fullWidth' | 'inline';
+  variant?: 'default' | 'solid' | 'solidTag' | 'outline' | 'primary';
   size?: 'sm' | 'md' | 'lg' | 'icon_sm' | 'icon_md' | 'icon_lg';
   href?: string;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { children, variant = 'default', size = 'md', href, className, ...rest },
+    {
+      children,
+      variant = 'default',
+      layout = 'inline',
+      size = 'md',
+      href,
+      className,
+      ...rest
+    },
     ref,
   ) => {
     if (href) {
       return (
         <Link
           href={href}
-          className={`${button({ variant, size })} ${className || ''}`}
+          className={`${button({ variant, size, layout })} ${className || ''}`}
         >
           {children}
         </Link>
@@ -102,7 +130,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <button
-        className={`${button({ variant, size })} ${className || ''}`}
+        className={`${button({ variant, size, layout })} ${className || ''}`}
         ref={ref}
         {...rest}
       >

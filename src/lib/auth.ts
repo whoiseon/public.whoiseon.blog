@@ -1,6 +1,6 @@
 import type { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import db from '@/lib/db';
+import { AuthService } from '@/services/auth.service';
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -8,31 +8,10 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      const findUser = await db.user.findUnique({
-        where: {
-          email: user?.email as string,
-        },
-      });
+      const authService = new AuthService();
 
-      if (findUser) {
-        await db.signInLog.create({
-          data: {
-            email: user?.email as string,
-            name: user?.name as string,
-            caution: false,
-            ip: '',
-          },
-        });
-      } else {
-        await db.signInLog.create({
-          data: {
-            email: user?.email as string,
-            name: user?.name as string,
-            caution: true,
-            ip: '',
-          },
-        });
-      }
+      const findUser = await authService.findUser(user?.email as string);
+      await authService.createSignInLog(user);
 
       return !!findUser;
     },

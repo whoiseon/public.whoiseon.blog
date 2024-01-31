@@ -10,6 +10,7 @@ import Button from '@/components/system/Button';
 import Image from 'next/image';
 import { signOut } from 'next-auth/react';
 import { css } from '@styled-system/css';
+import Link from 'next/link';
 
 interface Props {
   className?: string;
@@ -36,7 +37,14 @@ function AuthDropdown({ className }: Props) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem>
-            <span>글쓰기</span>
+            <Link
+              href={'/write'}
+              className={css({
+                width: '100%',
+              })}
+            >
+              글쓰기
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem

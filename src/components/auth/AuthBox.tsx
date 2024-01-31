@@ -6,13 +6,10 @@ import { css } from '@styled-system/css';
 import { Icons } from '@/components/system/Icons';
 import { useUser } from '@/lib/store/useUser';
 import { redirect } from 'next/navigation';
+import authRedirect from '@/lib/authRedirect';
 
 function AuthBox() {
-  const { user } = useUser();
-
-  if (user) {
-    redirect('/');
-  }
+  authRedirect();
 
   return (
     <div className={block}>
