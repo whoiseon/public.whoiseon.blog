@@ -3,11 +3,12 @@
 import { css } from '@styled-system/css';
 import { useInput } from '@/lib/hooks/useInput';
 import TagInput from '@/components/write/TagInput';
-import { Suspense, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import WriteFooter from '@/components/write/WriteFooter';
 import MarkdownPreview from '@/components/write/MarkdownPreview';
 import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
+import { useUpload } from '@/lib/hooks/useUpload';
 
 const MarkdownEditor = dynamic(
   () => import('@/components/write/MarkdownEditor'),
@@ -21,11 +22,27 @@ function EditorContainer() {
   const [tags, setTags] = useState<string[]>([]);
   const [markdown, setMarkdown] = useState<string>('');
 
+  const [upload, file] = useUpload();
+  const [imageBlobUrl, setImageBlobUrl] = useState<string | null>(null);
+  const [lastUploadedImage, setLastUploadedImage] = useState<string | null>(
+    null,
+  );
+
   const { theme } = useTheme();
 
   const onPublish = () => {};
 
   const onTempSave = () => {};
+
+  const uploadImage = useCallback(async (file: File) => {
+    const blobUrl = URL.createObjectURL(file);
+    setImageBlobUrl(blobUrl);
+  }, []);
+
+  useEffect(() => {
+    if (!file) return;
+    uploadImage(file);
+  }, [file]);
 
   return (
     <div className={wrapper}>
@@ -36,6 +53,8 @@ function EditorContainer() {
           tagInput={<TagInput tags={tags} onChange={setTags} />}
           markdown={markdown}
           onChangeMarkdown={setMarkdown}
+          onUpload={upload}
+          tempBlobImage={imageBlobUrl}
           theme={theme}
           footer={
             <WriteFooter

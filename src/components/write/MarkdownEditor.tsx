@@ -33,23 +33,27 @@ type AddLinkModalState = {
 interface Props {
   onChangeTitle: (e: ChangeEventType) => void;
   onChangeMarkdown: (markdown: string) => void;
+  onUpload: () => void;
   title: string;
   markdown: string;
   theme?: string;
   tagInput: React.ReactNode;
   footer: React.ReactNode;
   initialBody?: string;
+  tempBlobImage?: string | null;
 }
 
 function MarkdownEditor({
   onChangeMarkdown,
   onChangeTitle,
+  onUpload,
   title,
   markdown,
   theme,
   tagInput,
   footer,
   initialBody,
+  tempBlobImage,
 }: Props) {
   const blockElement = useRef<HTMLDivElement>(null);
   const toolbarElement = useRef<HTMLDivElement>(null);
@@ -377,6 +381,9 @@ function MarkdownEditor({
       link: () => {
         handleOpenAddLinkModal();
       },
+      image: () => {
+        onUpload();
+      },
     };
 
     const handler = toolbarHandlers[mode];
@@ -555,6 +562,19 @@ function MarkdownEditor({
       ch: cursor.ch + link.length + 4,
     });
   };
+
+  const addTempImageBlobToEditor = (blobUrl: string) => {
+    const imageMarkdown = `![업로드중..](${blobUrl})`;
+
+    if (isIOS) return;
+    if (!codemirror) return;
+    codemirror.getDoc().replaceSelection(imageMarkdown);
+  };
+
+  useEffect(() => {
+    if (!tempBlobImage) return;
+    addTempImageBlobToEditor(tempBlobImage);
+  }, [tempBlobImage]);
 
   useEffect(() => {
     initialize();

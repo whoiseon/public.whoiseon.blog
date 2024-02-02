@@ -1,5 +1,5 @@
 import { useInput } from '@/lib/hooks/useInput';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { css } from '@styled-system/css';
 import zIndexes from '@/lib/styles/zIndexes';
@@ -35,6 +35,12 @@ function AddLinkModal({
     },
     [value, onConfirm],
   );
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   return (
     <OutsideClickHandler onOutsideClick={onClose}>
