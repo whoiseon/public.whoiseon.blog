@@ -1,6 +1,12 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 @layer reset, base, tokens, recipes, utilities;
 
-* {
+@font-face {
+    font-family: 'Fira Mono';
+    font-style: normal;
+    src: url("/fonts/code/FiraMono-Regular.ttf") format("truetype");
+}
+
+html, body {
     font-family: "Pretendard", sans-serif;
 }

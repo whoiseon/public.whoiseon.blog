@@ -24,42 +24,21 @@ function MarkdownPreview({ preview, title, markdown }: Props) {
   }, [markdown]);
 
   return (
-    <div className={rightBlock}>
-      <div className={wrapper} ref={Wrapper}>
-        <h1
-          className={css({
-            fontSize: '2.5rem',
-            fontWeight: 700,
-            mb: '4rem',
-            color: 'text',
-          })}
-        >
-          {title}
-        </h1>
-        {preview}
-      </div>
+    <div className={wrapper} ref={Wrapper}>
+      <h1
+        className={css({
+          fontSize: '2.5rem',
+          fontWeight: 700,
+          mb: '4rem',
+          color: 'text',
+        })}
+      >
+        {title}
+      </h1>
+      {preview}
     </div>
   );
 }
-
-const editorBlock = css.raw({
-  minW: '0px',
-  flex: 1,
-  display: 'flex',
-  flexDir: 'column',
-  position: 'relative',
-});
-
-const rightBlock = css(
-  editorBlock,
-  css.raw({
-    display: 'none',
-    bg: 'bg_page1',
-    md: {
-      display: 'flex',
-    },
-  }),
-);
 
 const wrapper = css({
   p: '2.5rem',
