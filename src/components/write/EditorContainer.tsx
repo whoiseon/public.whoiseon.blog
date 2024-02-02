@@ -28,34 +28,32 @@ function EditorContainer() {
   const onTempSave = () => {};
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className={wrapper}>
-        <div className={leftBlock}>
-          <MarkdownEditor
-            title={title}
-            onChangeTitle={onChangeTitle}
-            tagInput={<TagInput tags={tags} onChange={setTags} />}
-            markdown={markdown}
-            onChangeMarkdown={setMarkdown}
-            theme={theme}
-            footer={
-              <WriteFooter
-                edit={false}
-                onPublish={onPublish}
-                onTempSave={onTempSave}
-              />
-            }
-          />
-        </div>
-        <div className={rightBlock}>
-          <MarkdownPreview
-            preview={<div>{markdown}</div>}
-            title={title}
-            markdown={markdown}
-          />
-        </div>
+    <div className={wrapper}>
+      <div className={leftBlock}>
+        <MarkdownEditor
+          title={title}
+          onChangeTitle={onChangeTitle}
+          tagInput={<TagInput tags={tags} onChange={setTags} />}
+          markdown={markdown}
+          onChangeMarkdown={setMarkdown}
+          theme={theme}
+          footer={
+            <WriteFooter
+              edit={false}
+              onPublish={onPublish}
+              onTempSave={onTempSave}
+            />
+          }
+        />
       </div>
-    </Suspense>
+      <div className={rightBlock}>
+        <MarkdownPreview
+          preview={<div>{markdown}</div>}
+          title={title}
+          markdown={markdown}
+        />
+      </div>
+    </div>
   );
 }
 

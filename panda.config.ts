@@ -200,6 +200,18 @@ export default defineConfig({
             _dark: '{colors.zinc.700}',
           },
         },
+        outline3: {
+          value: {
+            _light: '{colors.zinc.300}',
+            _dark: '{colors.zinc.600}',
+          },
+        },
+        outline4: {
+          value: {
+            _light: '{colors.zinc.600}',
+            _dark: '{colors.zinc.300}',
+          },
+        },
         editor_footer: {
           value: {
             _light: 'white',
