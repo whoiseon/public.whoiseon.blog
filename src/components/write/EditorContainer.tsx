@@ -9,6 +9,7 @@ import MarkdownPreview from '@/components/write/MarkdownPreview';
 import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import { useUpload } from '@/lib/hooks/useUpload';
+import { useServerUpload } from '@/lib/hooks/useServerUpload';
 
 const MarkdownEditor = dynamic(
   () => import('@/components/write/MarkdownEditor'),
@@ -23,6 +24,8 @@ function EditorContainer() {
   const [markdown, setMarkdown] = useState<string>('');
 
   const [upload, file] = useUpload();
+  const { upload: serverUpload, image } = useServerUpload();
+
   const [imageBlobUrl, setImageBlobUrl] = useState<string | null>(null);
   const [lastUploadedImage, setLastUploadedImage] = useState<string | null>(
     null,
@@ -34,10 +37,17 @@ function EditorContainer() {
 
   const onTempSave = () => {};
 
-  const uploadImage = useCallback(async (file: File) => {
-    const blobUrl = URL.createObjectURL(file);
-    setImageBlobUrl(blobUrl);
-  }, []);
+  const uploadImage = useCallback(
+    async (file: File) => {
+      // temp image
+      const blobUrl = URL.createObjectURL(file);
+      setImageBlobUrl(blobUrl);
+
+      // server upload
+      serverUpload(file);
+    },
+    [serverUpload],
+  );
 
   useEffect(() => {
     if (!file) return;
@@ -55,6 +65,7 @@ function EditorContainer() {
           onChangeMarkdown={setMarkdown}
           onUpload={upload}
           tempBlobImage={imageBlobUrl}
+          lastUploadedImage={image}
           theme={theme}
           footer={
             <WriteFooter

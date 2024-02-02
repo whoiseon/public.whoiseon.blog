@@ -41,6 +41,7 @@ interface Props {
   footer: React.ReactNode;
   initialBody?: string;
   tempBlobImage?: string | null;
+  lastUploadedImage?: string | null;
 }
 
 function MarkdownEditor({
@@ -54,6 +55,7 @@ function MarkdownEditor({
   footer,
   initialBody,
   tempBlobImage,
+  lastUploadedImage,
 }: Props) {
   const blockElement = useRef<HTMLDivElement>(null);
   const toolbarElement = useRef<HTMLDivElement>(null);
@@ -563,6 +565,10 @@ function MarkdownEditor({
     });
   };
 
+  const addImageToEditor = (image: string) => {
+    console.log(image);
+  };
+
   const addTempImageBlobToEditor = (blobUrl: string) => {
     const imageMarkdown = `![업로드중..](${blobUrl})`;
 
@@ -575,6 +581,11 @@ function MarkdownEditor({
     if (!tempBlobImage) return;
     addTempImageBlobToEditor(tempBlobImage);
   }, [tempBlobImage]);
+
+  useEffect(() => {
+    if (!lastUploadedImage) return;
+    addImageToEditor(lastUploadedImage);
+  }, [lastUploadedImage]);
 
   useEffect(() => {
     initialize();
