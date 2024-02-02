@@ -1,3 +1,5 @@
-export async function GET(req: Request, res: Response) {
-  return Response.json({ message: 'Hello, World!' });
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function GET(req: NextRequest, res: NextResponse) {
+  return NextResponse.json({ message: 'Hello, World!' });
 }
