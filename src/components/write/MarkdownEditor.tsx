@@ -566,7 +566,37 @@ function MarkdownEditor({
   };
 
   const addImageToEditor = (image: string) => {
-    console.log(image);
+    if (isIOS) {
+      const textarea = appleEditorElement.current;
+      if (!textarea) return;
+
+      const cursorPosition = textarea.selectionEnd;
+      const textBefore = markdown.slice(0, cursorPosition);
+      const textAfter = markdown.slice(cursorPosition, markdown.length);
+      const imageMarkdown = `![](${encodeURI(image)})`;
+      const nextMarkdown = `${textBefore}${imageMarkdown}${textAfter}`;
+      onChangeMarkdown(nextMarkdown);
+      setTimeout(() => {
+        textarea.focus();
+        const nextCursorPosition = cursorPosition + imageMarkdown.length;
+        textarea.selectionStart = nextCursorPosition;
+        textarea.selectionEnd = nextCursorPosition;
+      }, 0);
+    }
+
+    if (!codemirror) return;
+    const lines = codemirror.getValue().split('\n');
+    const lineIndex = lines.findIndex((line) => line.includes('![업로드중..]'));
+    if (lineIndex === -1) return;
+
+    const startCh = lines[lineIndex].indexOf('![업로드중..');
+    codemirror
+      .getDoc()
+      .replaceRange(
+        `![](${encodeURI(image)})`,
+        { line: lineIndex, ch: startCh },
+        { line: lineIndex, ch: lines[lineIndex].length },
+      );
   };
 
   const addTempImageBlobToEditor = (blobUrl: string) => {
@@ -618,6 +648,7 @@ function MarkdownEditor({
           innerRef={toolbarElement}
           ios={isIOS}
         />
+        {theme}
         <div className={markdownWrapper}>
           {addLinkModal.visible && (
             <AddLinkModal

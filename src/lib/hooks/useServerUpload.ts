@@ -8,6 +8,8 @@ export function useServerUpload() {
 
   const upload = useCallback(async (file: File) => {
     const response = await uploadImage(file);
+    setImage(response.path);
+    return response.path;
   }, []);
 
   return {
