@@ -31,7 +31,7 @@ function EditorContainer() {
     null,
   );
 
-  const { theme } = useTheme();
+  const { theme, systemTheme } = useTheme();
 
   const onPublish = () => {};
 
@@ -66,7 +66,7 @@ function EditorContainer() {
           onUpload={upload}
           tempBlobImage={imageBlobUrl}
           lastUploadedImage={image}
-          theme={theme}
+          theme={theme === 'system' ? systemTheme : theme}
           footer={
             <WriteFooter
               edit={false}

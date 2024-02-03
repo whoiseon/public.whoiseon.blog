@@ -648,7 +648,6 @@ function MarkdownEditor({
           innerRef={toolbarElement}
           ios={isIOS}
         />
-        {theme}
         <div className={markdownWrapper}>
           {addLinkModal.visible && (
             <AddLinkModal
