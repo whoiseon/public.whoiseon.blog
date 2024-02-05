@@ -82,6 +82,8 @@ function EditorContainer() {
   );
 
   const preparePost = async (postId: number) => {
+    setTags([]);
+
     const response = await getPostById(postId);
     if (!response.payload) return;
     const { title, tags, body } = response.payload;
