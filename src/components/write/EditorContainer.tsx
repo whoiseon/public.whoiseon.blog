@@ -88,6 +88,7 @@ function EditorContainer() {
     setTitle(title);
     setTags((prev) => [...prev, ...tags.map((tag: any) => tag.name)]);
     setInitialBody(body);
+    setMarkdown(body);
   };
 
   useEffect(() => {
