@@ -5,7 +5,6 @@ import { useCallback, useState } from 'react';
 export function useUpload() {
   const [file, setFile] = useState<File | null>(null);
   const upload = useCallback(() => {
-    console.log('123');
     return new Promise<File | null>((resolve, reject) => {
       const input = document.createElement('input');
       input.accept = 'image/*';

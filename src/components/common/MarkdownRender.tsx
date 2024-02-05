@@ -193,7 +193,7 @@ const markdownRenderBlockStyle = css.raw({
     lineHeight: '1.5',
     overflowX: 'auto',
     letterSpacing: '0px',
-    mb: '1.5rem',
+    my: '1.5rem',
     md: {
       fontSize: '0.875rem',
       padding: '1rem',

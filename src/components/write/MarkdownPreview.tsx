@@ -24,7 +24,7 @@ function MarkdownPreview({ title, markdown }: Props) {
   }, [markdown]);
 
   return (
-    <div className={wrapper} ref={Wrapper}>
+    <div id="preview" className={wrapper} ref={Wrapper}>
       <h1
         className={css({
           fontSize: '2.5rem',

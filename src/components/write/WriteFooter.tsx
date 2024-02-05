@@ -52,6 +52,7 @@ function WriteFooter({ edit, onPublish, onTempSave }: Props) {
         className={css({ justifyContent: 'flex-end', alignItems: 'center' })}
       >
         <Button
+          onClick={onTempSave}
           className={css({
             bg: 'editor_footer',
             mr: '0.5rem',

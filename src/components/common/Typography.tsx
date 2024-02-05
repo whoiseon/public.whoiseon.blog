@@ -61,6 +61,7 @@ const typographyBlock = css({
   '& code': {
     fontFamily:
       'Fira Mono, source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace',
+    bg: 'bg_element2 !important',
   },
 
   '& hr': {

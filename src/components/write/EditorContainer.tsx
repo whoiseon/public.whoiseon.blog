@@ -10,6 +10,8 @@ import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import { useUpload } from '@/lib/hooks/useUpload';
 import { useServerUpload } from '@/lib/hooks/useServerUpload';
+import { postTempSave } from '@/lib/api/post';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const MarkdownEditor = dynamic(
   () => import('@/components/write/MarkdownEditor'),
@@ -19,6 +21,10 @@ const MarkdownEditor = dynamic(
 );
 
 function EditorContainer() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const postId = searchParams.get('id');
+
   const [title, onChangeTitle] = useInput('');
   const [tags, setTags] = useState<string[]>([]);
   const [markdown, setMarkdown] = useState<string>('');
@@ -35,7 +41,26 @@ function EditorContainer() {
 
   const onPublish = () => {};
 
-  const onTempSave = () => {};
+  const onTempSave = useCallback(async () => {
+    if (!title) {
+      alert('제목을 입력해주세요.');
+      return;
+    }
+
+    const response = await postTempSave({
+      title,
+      tags,
+      body: markdown,
+      description: '',
+      isTemp: true,
+      thumbnail: '',
+      urlSlug: '',
+    });
+
+    if (response.payload.postId) {
+      router.push(`/write?id=${response.payload.postId}`);
+    }
+  }, [title, tags, markdown]);
 
   const uploadImage = useCallback(
     async (file: File) => {
@@ -48,6 +73,13 @@ function EditorContainer() {
     },
     [serverUpload],
   );
+
+  const preparePost = async (postId: number) => {};
+
+  useEffect(() => {
+    if (!postId) return;
+    preparePost(Number(postId));
+  }, [postId]);
 
   useEffect(() => {
     if (!file) return;
