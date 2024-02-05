@@ -81,12 +81,10 @@ function MarkdownEditor({
       mode: 'markdown',
       theme: `one-${theme}`,
       placeholder: '당신의 이야기를 적어보세요...',
-      // viewportMargin: Infinity,
       lineWrapping: true,
     });
 
     if (detectJSDOM()) return;
-
     cm.setValue(initialBody || '');
     cm.on('change', (cm) => {
       onChangeMarkdown(cm.getValue());

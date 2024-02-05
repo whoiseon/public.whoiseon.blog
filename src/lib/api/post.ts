@@ -11,3 +11,11 @@ export async function postTempSave(
 
   return await response.json();
 }
+
+export async function getPostById(postId: number) {
+  const response = await fetch(`/api/post/${postId}`, {
+    method: 'GET',
+  });
+
+  return await response.json();
+}

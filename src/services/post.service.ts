@@ -134,30 +134,54 @@ export class PostService {
     };
   }
 
-  public async getPost(postId: number) {
+  public async getPostById(postId: number) {
     const postInclude: PostInclude = {
       tags: true,
     };
 
-    return db.post.findFirst({
+    const post = await db.post.findFirst({
       where: {
         id: postId,
       },
       include: postInclude,
     });
+
+    if (!post) {
+      return {
+        error: '포스트를 찾을 수 없습니다.',
+        payload: null,
+      };
+    }
+
+    return {
+      error: '',
+      payload: post,
+    };
   }
 
-  public async getPostWithSlug(urlSlug: string, postId: number) {
+  public async getPostByIdWithSlug(urlSlug: string, postId: number) {
     const postInclude: PostInclude = {
       tags: true,
     };
 
-    return db.post.findFirst({
+    const post = await db.post.findFirst({
       where: {
         urlSlug,
       },
       include: postInclude,
     });
+
+    if (!post) {
+      return {
+        error: '포스트를 찾을 수 없습니다.',
+        payload: null,
+      };
+    }
+
+    return {
+      error: '',
+      payload: post,
+    };
   }
 }
 

@@ -10,8 +10,13 @@ import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import { useUpload } from '@/lib/hooks/useUpload';
 import { useServerUpload } from '@/lib/hooks/useServerUpload';
-import { postTempSave } from '@/lib/api/post';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { getPostById, postTempSave } from '@/lib/api/post';
+import {
+  notFound,
+  redirect,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
 
 const MarkdownEditor = dynamic(
   () => import('@/components/write/MarkdownEditor'),
@@ -25,9 +30,10 @@ function EditorContainer() {
   const searchParams = useSearchParams();
   const postId = searchParams.get('id');
 
-  const [title, onChangeTitle] = useInput('');
+  const [title, onChangeTitle, setTitle] = useInput('');
   const [tags, setTags] = useState<string[]>([]);
   const [markdown, setMarkdown] = useState<string>('');
+  const [initialBody, setInitialBody] = useState<string>('');
 
   const [upload, file] = useUpload();
   const { upload: serverUpload, image } = useServerUpload();
@@ -48,6 +54,7 @@ function EditorContainer() {
     }
 
     const response = await postTempSave({
+      id: Number(postId),
       title,
       tags,
       body: markdown,
@@ -74,7 +81,14 @@ function EditorContainer() {
     [serverUpload],
   );
 
-  const preparePost = async (postId: number) => {};
+  const preparePost = async (postId: number) => {
+    const response = await getPostById(postId);
+    if (!response.payload) return;
+    const { title, tags, body } = response.payload;
+    setTitle(title);
+    setTags((prev) => [...prev, ...tags.map((tag: any) => tag.name)]);
+    setInitialBody(body);
+  };
 
   useEffect(() => {
     if (!postId) return;
@@ -98,6 +112,7 @@ function EditorContainer() {
           onUpload={upload}
           tempBlobImage={imageBlobUrl}
           lastUploadedImage={image}
+          initialBody={initialBody}
           theme={theme === 'system' ? systemTheme : theme}
           footer={
             <WriteFooter
