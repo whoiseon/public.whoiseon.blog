@@ -77,11 +77,7 @@ function EditorContainer() {
         />
       </div>
       <div className={rightBlock}>
-        <MarkdownPreview
-          preview={<div>{markdown}</div>}
-          title={title}
-          markdown={markdown}
-        />
+        <MarkdownPreview title={title} markdown={markdown} />
       </div>
     </div>
   );

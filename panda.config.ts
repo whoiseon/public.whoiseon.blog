@@ -68,6 +68,12 @@ export default defineConfig({
             _dark: '{colors.blue.700}',
           },
         },
+        primary_right: {
+          value: {
+            _light: '{colors.blue.500}',
+            _dark: '{colors.blue.400}',
+          },
+        },
         destructive1: {
           value: {
             _light: '{colors.red.400}',
@@ -216,6 +222,92 @@ export default defineConfig({
           value: {
             _light: 'white',
             _dark: '{colors.zinc.800}',
+          },
+        },
+
+        /* prism theme */
+        prism_bg: {
+          value: {
+            _light: '{colors.zinc.100}',
+            _dark: '{colors.zinc.800}',
+          },
+        },
+        prism_default_text: {
+          value: {
+            _light: '#24292e',
+            _dark: '#e0e6f1',
+          },
+        },
+        prism_selection_bg: {
+          value: {
+            _light: 'rgba(0, 0, 0, 0.15)',
+            _dark: '#383e49',
+          },
+        },
+        prism_code_block_bg: {
+          value: {
+            _light: '#fbfcfd',
+            _dark: '#1e1e1e',
+          },
+        },
+        prism_code_1: {
+          value: {
+            _light: '#969896',
+            _dark: '#7c858d',
+          },
+        },
+        prism_code_2: {
+          value: {
+            _light: '#24292e',
+            _dark: '#abb2bf',
+          },
+        },
+        prism_code_3: {
+          value: {
+            _light: '#a626a4',
+            _dark: '#e06c75',
+          },
+        },
+        prism_code_4: {
+          value: {
+            _light: '#63a35c',
+            _dark: '#d19a66',
+          },
+        },
+        prism_code_5: {
+          value: {
+            _light: '#0184bc',
+            _dark: '#98c379',
+          },
+        },
+        prism_code_6: {
+          value: {
+            _light: '#50a14f',
+            _dark: '#56b6c2',
+          },
+        },
+        prism_code_7: {
+          value: {
+            _light: '#a626a4',
+            _dark: '#c678dd',
+          },
+        },
+        prism_code_8: {
+          value: {
+            _light: '#005cc5',
+            _dark: '#61afef',
+          },
+        },
+        prism_code_9: {
+          value: {
+            _light: '#a626a4',
+            _dark: '#c678dd',
+          },
+        },
+        prism_line_number: {
+          value: {
+            _light: '#585c63',
+            _dark: '#5c6370',
           },
         },
       },

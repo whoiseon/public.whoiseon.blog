@@ -2,14 +2,14 @@
 
 import { css } from '@styled-system/css';
 import { useEffect, useRef } from 'react';
+import MarkdownRender from '@/components/common/MarkdownRender';
 
 interface Props {
-  preview: React.ReactNode;
   title: string;
-  markdown: string | undefined;
+  markdown: string;
 }
 
-function MarkdownPreview({ preview, title, markdown }: Props) {
+function MarkdownPreview({ title, markdown }: Props) {
   const Wrapper = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function MarkdownPreview({ preview, title, markdown }: Props) {
       >
         {title}
       </h1>
-      {preview}
+      <MarkdownRender markdown={markdown} editing />
     </div>
   );
 }

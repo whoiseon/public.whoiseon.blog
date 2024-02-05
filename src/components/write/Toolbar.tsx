@@ -69,11 +69,11 @@ function Toolbar({ onClick = () => {}, innerRef, ios }: Props) {
           <button className={`${toolbarItem}`} onClick={() => onClick('link')}>
             <IoMdLink />
           </button>
-          <button className={`${toolbarItem}`} onClick={() => onClick('image')}>
-            <IoMdImage />
-          </button>
         </>
       )}
+      <button className={`${toolbarItem}`} onClick={() => onClick('image')}>
+        <IoMdImage />
+      </button>
     </div>
   );
 }
