@@ -8,6 +8,7 @@ import Button from '@/components/system/Button';
 import { useInput } from '@/lib/hooks/useInput';
 import { useServerUpload } from '@/lib/hooks/useServerUpload';
 import { useUpload } from '@/lib/hooks/useUpload';
+import Image from 'next/image';
 
 interface Props {
   visible: boolean;
@@ -53,10 +54,14 @@ function PublishScreen({ visible, onClose }: Props) {
         <h2 className={css({ fontSize: '1.125rem', mb: '1rem' })}>
           포스트 미리보기
         </h2>
-        <button className={imageUploadButton} onClick={upload}>
-          <ImImage />
-          <span>썸네일 업로드</span>
-        </button>
+        {image ? (
+          <Image src={image} alt={title} width={380} height={213.75} />
+        ) : (
+          <button className={imageUploadButton} onClick={upload}>
+            <ImImage />
+            <span>썸네일 업로드</span>
+          </button>
+        )}
         <div
           className={css({
             display: 'flex',
