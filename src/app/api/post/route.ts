@@ -7,7 +7,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   return NextResponse.json(
     {
-      ...(await postService.postTempSave(body)),
+      ...(await postService.postWrite(body)),
     },
     {
       status: 201,

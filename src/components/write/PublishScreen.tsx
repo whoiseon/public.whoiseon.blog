@@ -3,12 +3,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { css } from '@styled-system/css';
 import { ImImage } from '@react-icons/all-files/im/ImImage';
-import usePublishStore from '@/lib/store/modules/usePublish';
 import Button from '@/components/system/Button';
 import { useInput } from '@/lib/hooks/useInput';
 import { useServerUpload } from '@/lib/hooks/useServerUpload';
 import { useUpload } from '@/lib/hooks/useUpload';
 import Image from 'next/image';
+import { writePost } from '@/lib/api/post';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import { usePublish } from '@/lib/store/modules/usePublish';
 
 interface Props {
   visible: boolean;
@@ -16,14 +19,50 @@ interface Props {
 }
 
 function PublishScreen({ visible, onClose }: Props) {
-  const { title, tags, body, description, isTemp, thumbnail, urlSlug } =
-    usePublishStore();
+  const router = useRouter();
+
+  const { post } = usePublish();
   const [animate, setAnimate] = useState(false);
   const [maxDescriptionLength, setMaxDescriptionLength] = useState(150);
-  const [descriptionValue, onChangeDescription] = useInput('');
+  const [descriptionValue, onChangeDescription, setDescription] = useInput('');
 
   const [upload, file] = useUpload();
-  const { upload: uploadThumbnail, image } = useServerUpload();
+  const { upload: uploadThumbnail, image, setImage } = useServerUpload();
+
+  const handleRemoveImage = () => {
+    setImage(null);
+  };
+
+  const handleImageReUpload = () => {
+    setImage(null);
+    return upload();
+  };
+
+  const onPublish = async () => {
+    if (!post) return;
+    const response = await writePost({
+      id: post?.id,
+      title: post.title,
+      tags: post.tags,
+      body: post.body,
+      description: descriptionValue,
+      isTemp: post.isTemp,
+      thumbnail: image,
+      urlSlug: post.urlSlug,
+    });
+
+    if (response.payload.postId) {
+      router.push(`/post/${post.urlSlug}`);
+      return;
+    }
+
+    onClose();
+    toast.error('포스트를 발행하는데 실패했습니다.', {
+      position: 'top-center',
+      autoClose: 2000,
+      pauseOnHover: false,
+    });
+  };
 
   useEffect(() => {
     if (!file) return;
@@ -46,6 +85,12 @@ function PublishScreen({ visible, onClose }: Props) {
     };
   }, [visible, animate]);
 
+  useEffect(() => {
+    if (!post) return;
+    setImage(post?.thumbnail);
+    setDescription(post?.description || '');
+  }, [post]);
+
   if (!visible && !animate) return null;
 
   return (
@@ -55,26 +100,40 @@ function PublishScreen({ visible, onClose }: Props) {
           포스트 미리보기
         </h2>
         {image ? (
-          <div className={thumbnailBox}>
-            <Image
+          <>
+            <div
               className={css({
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                overflow: 'hidden',
+                display: 'flex',
+                justifyContent: 'flex-end',
+                mb: '0.5rem',
               })}
-              src={image}
-              alt={title}
-              width={380}
-              height={213.75}
-              placeholder="empty"
-              decoding="async"
-              loading="lazy"
-              style={{
-                color: 'transparent',
-              }}
-            />
-          </div>
+            >
+              <Button onClick={upload} className={css({ mr: '0.5rem' })}>
+                재업로드
+              </Button>
+              <Button onClick={handleRemoveImage}>제거</Button>
+            </div>
+            <div className={thumbnailBox}>
+              <Image
+                className={css({
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  overflow: 'hidden',
+                })}
+                src={image}
+                alt={post!.title}
+                width={380}
+                height={213.75}
+                placeholder="empty"
+                decoding="async"
+                loading="lazy"
+                style={{
+                  color: 'transparent',
+                }}
+              />
+            </div>
+          </>
         ) : (
           <button className={imageUploadButton} onClick={upload}>
             <ImImage />
@@ -88,7 +147,7 @@ function PublishScreen({ visible, onClose }: Props) {
             mb: '1.5rem',
           })}
         >
-          <h3 className={css({ mb: '0.5rem' })}>{title}</h3>
+          <h3 className={css({ mb: '0.5rem' })}>{post?.title}</h3>
           <div>
             <textarea
               className={descriptionTextarea}
@@ -122,6 +181,7 @@ function PublishScreen({ visible, onClose }: Props) {
             취소
           </Button>
           <Button
+            onClick={onPublish}
             className={css({
               fontWeight: 'bold',
             })}

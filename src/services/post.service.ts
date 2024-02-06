@@ -13,32 +13,6 @@ export class PostService {
   constructor() {}
 
   public async postWrite(params: PostWriteParams) {
-    const { title, body, description, tags, urlSlug, thumbnail, isTemp } =
-      params;
-
-    if (isTemp) {
-      return await this.postTempSave(params);
-    }
-
-    console.log({
-      title,
-      body,
-      description,
-      tags,
-      urlSlug,
-      thumbnail,
-      isTemp,
-    });
-
-    return {
-      error: '',
-      payload: {
-        postId: null,
-      },
-    };
-  }
-
-  public async postTempSave(params: PostWriteParams) {
     const { id, title, body, description, tags, urlSlug, thumbnail, isTemp } =
       params;
 
@@ -52,20 +26,20 @@ export class PostService {
     }
 
     if (id) {
-      return this.postTempUpdate(params);
+      return this.postUpdate(params);
     }
 
-    const tempPostDataField: PostCreateInput = {
+    const postDataField: PostCreateInput = {
       title,
-      body: body || '',
-      description: description || '',
-      thumbnail: thumbnail || '',
-      urlSlug: urlSlug || '',
-      isTemp: true,
+      body,
+      description,
+      thumbnail,
+      urlSlug,
+      isTemp,
     };
 
     if (tags) {
-      tempPostDataField.tags = {
+      postDataField.tags = {
         connectOrCreate: tags.map((tag) => {
           return {
             where: {
@@ -79,29 +53,29 @@ export class PostService {
       };
     }
 
-    const tempPost = await db.post.create({
-      data: tempPostDataField,
+    const post = await db.post.create({
+      data: postDataField,
     });
 
     return {
       error: '',
       payload: {
-        postId: tempPost.id,
+        postId: post.id,
       },
     };
   }
 
-  public async postTempUpdate(params: PostWriteParams) {
+  public async postUpdate(params: PostWriteParams) {
     const { id, title, body, description, tags, urlSlug, thumbnail, isTemp } =
       params;
 
     const tempPostUpdateInput: PostUpdateInput = {
       title,
-      body: body || '',
-      description: description || '',
-      thumbnail: thumbnail || '',
-      urlSlug: urlSlug || '',
-      isTemp: true,
+      body,
+      description,
+      thumbnail,
+      urlSlug,
+      isTemp,
     };
 
     if (tags) {
@@ -119,7 +93,7 @@ export class PostService {
       };
     }
 
-    const tempPost = await db.post.update({
+    const updatedPost = await db.post.update({
       where: {
         id,
       },
@@ -129,7 +103,7 @@ export class PostService {
     return {
       error: '',
       payload: {
-        postId: tempPost.id,
+        postId: updatedPost.id,
       },
     };
   }
@@ -192,6 +166,6 @@ export interface PostWriteParams {
   description: string;
   tags: string[];
   urlSlug: string;
-  thumbnail?: string;
+  thumbnail?: string | null;
   isTemp: boolean;
 }

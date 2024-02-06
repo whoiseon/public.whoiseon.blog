@@ -13,8 +13,9 @@ export async function writePost(
 }
 
 export async function getPostById(postId: number) {
-  const response = await fetch(`/api/post/${postId}`, {
+  const response = await fetch(`https://imslow.me/api/post/${postId}`, {
     method: 'GET',
+    cache: 'no-store',
   });
 
   return await response.json();

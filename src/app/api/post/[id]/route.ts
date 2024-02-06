@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PostService } from '@/services/post.service';
+import { PostService, PostWriteParams } from '@/services/post.service';
 
 export async function GET(
   req: NextRequest,

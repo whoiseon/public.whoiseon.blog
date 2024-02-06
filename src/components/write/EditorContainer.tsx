@@ -16,7 +16,7 @@ import { Tag } from '@prisma/client';
 import { toast } from 'react-toastify';
 import PublishScreen from '@/components/write/PublishScreen';
 import { escapeForUrl } from '@/lib/utils';
-import usePublishStore from '@/lib/store/modules/usePublish';
+import { usePublish } from '@/lib/store/modules/usePublish';
 
 const MarkdownEditor = dynamic(
   () => import('@/components/write/MarkdownEditor'),
@@ -26,17 +26,17 @@ const MarkdownEditor = dynamic(
 );
 
 function EditorContainer() {
+  const { post, setPublishStore } = usePublish();
+
   const router = useRouter();
   const searchParams = useSearchParams();
-  const postId = searchParams.get('id');
+  const postId = searchParams.get('id') || undefined;
 
   const [title, onChangeTitle, setTitle] = useInput('');
   const [tags, setTags] = useState<string[]>([]);
   const [markdown, setMarkdown] = useState<string>('');
   const [initialBody, setInitialBody] = useState<string>('');
   const [published, setPublished] = useState<boolean>(false);
-
-  const { setPublishStore } = usePublishStore();
 
   const [upload, file] = useUpload();
   const { upload: serverUpload, image } = useServerUpload();
@@ -47,18 +47,28 @@ function EditorContainer() {
 
   const onPublish = () => {
     setPublishStore({
-      ...usePublishStore.getState(),
+      id: Number(postId),
       title,
       tags,
       body: markdown,
-      description: '',
+      description: post?.description || '',
       isTemp: false,
-      thumbnail: '',
+      thumbnail: post?.thumbnail || '',
       urlSlug: escapeForUrl(title),
     });
 
     if (!title || !markdown) {
       toast.error('제목 또는 본문이 비어있습니다.', {
+        position: 'top-center',
+        autoClose: 2000,
+        pauseOnHover: false,
+        theme: theme || systemTheme,
+      });
+      return;
+    }
+
+    if (tags.length < 1) {
+      toast.error('태그를 하나 이상 입력해주세요.', {
         position: 'top-center',
         autoClose: 2000,
         pauseOnHover: false,
@@ -116,18 +126,12 @@ function EditorContainer() {
     [serverUpload],
   );
 
-  const preparePost = async (postId: number) => {
-    const response = await getPostById(postId);
-    if (!response.payload) return;
-    const { title, tags, body } = response.payload;
-    setTitle(title);
-    setTags((prev) => {
-      const newTags = tags.map((tag: Tag) => tag.name);
-      const diff = newTags.filter((tag: string) => !prev.includes(tag));
-      return [...prev, ...diff];
-    });
-    setInitialBody(body);
-    setMarkdown(body);
+  const preparePost = async () => {
+    if (!post) return;
+    setTitle(post.title);
+    setTags(post.tags);
+    setMarkdown(post.body);
+    setInitialBody(post.body);
   };
 
   const handleCancelPublish = () => {
@@ -136,7 +140,7 @@ function EditorContainer() {
 
   useEffect(() => {
     if (!postId) return;
-    preparePost(Number(postId));
+    preparePost();
   }, [postId]);
 
   useEffect(() => {

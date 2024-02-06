@@ -15,5 +15,6 @@ export function useServerUpload() {
   return {
     image,
     upload,
+    setImage,
   };
 }

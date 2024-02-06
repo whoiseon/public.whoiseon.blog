@@ -1,4 +1,4 @@
-import { create, createStore, useStore as useZustandStore } from 'zustand';
+import { createStore, useStore as useZustandStore } from 'zustand';
 import { createContext, useContext } from 'react';
 import { PreloadedStoreInterface } from '@/lib/store/store';
 import { useShallow } from 'zustand/react/shallow';
