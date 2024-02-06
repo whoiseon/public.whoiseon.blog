@@ -5,9 +5,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  const formData = await req.formData();
-  const file = formData.get('file') as File;
-  const isThumbnail = formData.get('isThumbnail') as string;
+  const body = await req.json();
+  const file = body.file as File;
+  const isThumbnail = body.isThumbnail as string;
 
   if (!file) {
     return NextResponse.json(

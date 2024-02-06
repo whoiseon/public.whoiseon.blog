@@ -177,7 +177,6 @@ const imageUploadButton = css({
   justifyContent: 'center',
   width: '100%',
   height: '213.75px',
-  borderRadius: 'sm',
   bg: 'bg_element1',
   cursor: 'pointer',
   md: {
@@ -194,7 +193,6 @@ const imageUploadButton = css({
 const descriptionTextarea = css({
   width: '100%',
   height: '110px',
-  borderRadius: 'sm',
   bg: 'bg_element1',
   color: 'text2',
   padding: '1rem',
@@ -206,6 +204,7 @@ const descriptionTextarea = css({
 const thumbnailBox = css({
   position: 'relative',
   flexShrink: 0,
+  mb: '1.5rem',
   sm: {
     width: '220px',
     height: '165px',
