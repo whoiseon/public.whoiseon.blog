@@ -1,7 +1,7 @@
 'use server';
 
 import { getServerSession } from 'next-auth';
-import { User } from '@/lib/store/useUser';
+import { User } from '@/lib/store/modules/useUser';
 import { authOptions } from '@/lib/auth';
 
 async function getUser() {

@@ -5,7 +5,7 @@ import {
   Provider,
   UserStoreInterface,
   UserStoreType,
-} from '@/lib/store/useUser';
+} from '@/lib/store/modules/useUser';
 import { PropsWithChildren, useRef } from 'react';
 
 export interface PreloadedUserStoreInterface

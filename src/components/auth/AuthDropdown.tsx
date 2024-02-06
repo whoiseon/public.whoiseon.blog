@@ -1,4 +1,4 @@
-import { useUser } from '@/lib/store/useUser';
+import { useUser } from '@/lib/store/modules/useUser';
 import {
   DropdownMenu,
   DropdownMenuContent,

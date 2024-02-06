@@ -10,13 +10,13 @@ import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import { useUpload } from '@/lib/hooks/useUpload';
 import { useServerUpload } from '@/lib/hooks/useServerUpload';
-import { getPostById, postTempSave } from '@/lib/api/post';
-import {
-  notFound,
-  redirect,
-  useRouter,
-  useSearchParams,
-} from 'next/navigation';
+import { getPostById, writePost } from '@/lib/api/post';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Tag } from '@prisma/client';
+import { toast } from 'react-toastify';
+import PublishScreen from '@/components/write/PublishScreen';
+import { escapeForUrl } from '@/lib/utils';
+import usePublishStore from '@/lib/store/modules/usePublish';
 
 const MarkdownEditor = dynamic(
   () => import('@/components/write/MarkdownEditor'),
@@ -34,26 +34,54 @@ function EditorContainer() {
   const [tags, setTags] = useState<string[]>([]);
   const [markdown, setMarkdown] = useState<string>('');
   const [initialBody, setInitialBody] = useState<string>('');
+  const [published, setPublished] = useState<boolean>(false);
+
+  const { setPublishStore } = usePublishStore();
 
   const [upload, file] = useUpload();
   const { upload: serverUpload, image } = useServerUpload();
 
   const [imageBlobUrl, setImageBlobUrl] = useState<string | null>(null);
-  const [lastUploadedImage, setLastUploadedImage] = useState<string | null>(
-    null,
-  );
 
   const { theme, systemTheme } = useTheme();
 
-  const onPublish = () => {};
+  const onPublish = () => {
+    setPublishStore({
+      ...usePublishStore.getState(),
+      title,
+      tags,
+      body: markdown,
+      description: '',
+      isTemp: false,
+      thumbnail: '',
+      urlSlug: escapeForUrl(title),
+    });
 
-  const onTempSave = useCallback(async () => {
-    if (!title) {
-      alert('제목을 입력해주세요.');
+    if (!title || !markdown) {
+      toast.error('제목 또는 본문이 비어있습니다.', {
+        position: 'top-center',
+        autoClose: 2000,
+        pauseOnHover: false,
+        theme: theme || systemTheme,
+      });
       return;
     }
 
-    const response = await postTempSave({
+    setPublished(true);
+  };
+
+  const onTempSave = useCallback(async () => {
+    if (!title || !markdown) {
+      toast.error('제목 또는 본문이 비어있습니다.', {
+        position: 'top-center',
+        autoClose: 2000,
+        pauseOnHover: false,
+        theme: theme || systemTheme,
+      });
+      return;
+    }
+
+    const response = await writePost({
       id: Number(postId),
       title,
       tags,
@@ -61,10 +89,17 @@ function EditorContainer() {
       description: '',
       isTemp: true,
       thumbnail: '',
-      urlSlug: '',
+      urlSlug: escapeForUrl(title),
     });
 
     if (response.payload.postId) {
+      toast.success('포스트가 임시저장되었습니다.', {
+        position: 'top-center',
+        autoClose: 2000,
+        pauseOnHover: false,
+        theme: theme || systemTheme,
+      });
+
       router.push(`/write?id=${response.payload.postId}`);
     }
   }, [title, tags, markdown]);
@@ -82,15 +117,21 @@ function EditorContainer() {
   );
 
   const preparePost = async (postId: number) => {
-    setTags([]);
-
     const response = await getPostById(postId);
     if (!response.payload) return;
     const { title, tags, body } = response.payload;
     setTitle(title);
-    setTags((prev) => [...prev, ...tags.map((tag: any) => tag.name)]);
+    setTags((prev) => {
+      const newTags = tags.map((tag: Tag) => tag.name);
+      const diff = newTags.filter((tag: string) => !prev.includes(tag));
+      return [...prev, ...diff];
+    });
     setInitialBody(body);
     setMarkdown(body);
+  };
+
+  const handleCancelPublish = () => {
+    setPublished(false);
   };
 
   useEffect(() => {
@@ -119,7 +160,7 @@ function EditorContainer() {
           theme={theme === 'system' ? systemTheme : theme}
           footer={
             <WriteFooter
-              edit={false}
+              edit={!!postId}
               onPublish={onPublish}
               onTempSave={onTempSave}
             />
@@ -129,6 +170,7 @@ function EditorContainer() {
       <div className={rightBlock}>
         <MarkdownPreview title={title} markdown={markdown} />
       </div>
+      <PublishScreen visible={published} onClose={handleCancelPublish} />
     </div>
   );
 }

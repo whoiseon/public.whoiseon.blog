@@ -1,7 +1,7 @@
 import { PostWriteParams } from '@/services/post.service';
 import { ResponsePostWrite } from '@/lib/api/types';
 
-export async function postTempSave(
+export async function writePost(
   params: PostWriteParams,
 ): Promise<ResponsePostWrite> {
   const response = await fetch('/api/post', {

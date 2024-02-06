@@ -1,6 +1,6 @@
 'use client';
 
-import { useUser } from '@/lib/store/useUser';
+import { useUser } from '@/lib/store/modules/useUser';
 import { redirect } from 'next/navigation';
 
 /**

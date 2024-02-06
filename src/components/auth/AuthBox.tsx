@@ -4,7 +4,7 @@ import { signIn } from 'next-auth/react';
 import Button from '@/components/system/Button';
 import { css } from '@styled-system/css';
 import { Icons } from '@/components/system/Icons';
-import { useUser } from '@/lib/store/useUser';
+import { useUser } from '@/lib/store/modules/useUser';
 import { redirect } from 'next/navigation';
 import authRedirect from '@/lib/authRedirect';
 

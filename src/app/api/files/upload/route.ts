@@ -5,9 +5,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  // TODO: file upload logic in server
   const formData = await req.formData();
   const file = formData.get('file') as File;
+  const isThumbnail = formData.get('isThumbnail') as string;
+
   if (!file) {
     return NextResponse.json(
       {
@@ -33,7 +34,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const uuid = uuidv4();
   const fileName = `image.${getFileExtension(file.name)}`;
   try {
-    const filePath = `${process.env.IMAGE_FILE_PATH}/${uuid}/${fileName}`;
+    let filePath = `${process.env.IMAGE_FILE_PATH}/${uuid}/${fileName}`;
+
+    if (isThumbnail === 'true') {
+      filePath = `${process.env.IMAGE_THUMBNAIL_PATH}/${uuid}/${fileName}`;
+    }
+
     const dir = path.dirname(filePath);
 
     if (!fs.existsSync(dir)) {
@@ -45,7 +51,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json(
       {
         error: '',
-        path: `https://imslow.me/images/blog/post/${uuid}/${fileName}`,
+        path:
+          isThumbnail === 'true'
+            ? `https://imslow.me/images/blog/thumbnail/${uuid}/${fileName}`
+            : `https://imslow.me/images/blog/post/${uuid}/${fileName}`,
       },
       {
         status: 201,

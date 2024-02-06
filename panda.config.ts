@@ -46,6 +46,22 @@ export default defineConfig({
             transform: 'translateY(-100%)',
           },
         },
+        slideUp: {
+          from: {
+            transform: 'translateY(100%)',
+          },
+          to: {
+            transform: 'translateY(0)',
+          },
+        },
+        slideDown: {
+          from: {
+            transform: 'translateY(0)',
+          },
+          to: {
+            transform: 'translateY(100%)',
+          },
+        },
       },
     },
     semanticTokens: {
@@ -172,7 +188,7 @@ export default defineConfig({
         },
         bg_editor: {
           value: {
-            _light: 'white',
+            _light: '#fdfdfd',
             _dark: '#121214',
           },
         },

@@ -70,6 +70,7 @@ function WriteFooter({ edit, onPublish, onTempSave }: Props) {
           layout="inline"
           variant="primary"
           className={css({ fontWeight: 'bold' })}
+          onClick={onPublish}
         >
           {edit ? '수정하기' : '출간하기'}
         </Button>

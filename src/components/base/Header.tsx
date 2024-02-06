@@ -5,7 +5,7 @@ import { css } from '@styled-system/css';
 import Logo from '@/components/system/Logo';
 import ThemeToggle from '@/components/system/ThemeToggle';
 import Button from '@/components/system/Button';
-import { useUser, useUserStore } from '@/lib/store/useUser';
+import { useUser, useUserStore } from '@/lib/store/modules/useUser';
 import AuthDropdown from '@/components/auth/AuthDropdown';
 
 interface Props {

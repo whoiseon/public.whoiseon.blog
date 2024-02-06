@@ -4,3 +4,9 @@ export interface ResponsePostWrite {
     postId: number;
   };
 }
+
+export interface Tag {
+  id: number;
+  name: string;
+  createdAt: string;
+}

@@ -85,6 +85,7 @@ function MarkdownEditor({
     });
 
     if (detectJSDOM()) return;
+    console.log(initialBody);
     cm.setValue(initialBody || '');
     cm.on('change', (cm) => {
       onChangeMarkdown(cm.getValue());
@@ -699,6 +700,7 @@ const markdownEditorBlock = css({
     lineHeight: '1.5 !important',
     color: 'text2 !important',
     fontFamily: 'Fira Mono, monospace !important',
+    bg: 'bg_editor !important',
 
     '& .cm-header': {
       lineHeight: '1.5 !important',
