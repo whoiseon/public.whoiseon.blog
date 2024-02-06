@@ -6,6 +6,8 @@ import { ImImage } from '@react-icons/all-files/im/ImImage';
 import usePublishStore from '@/lib/store/modules/usePublish';
 import Button from '@/components/system/Button';
 import { useInput } from '@/lib/hooks/useInput';
+import { useServerUpload } from '@/lib/hooks/useServerUpload';
+import { useUpload } from '@/lib/hooks/useUpload';
 
 interface Props {
   visible: boolean;
@@ -19,7 +21,13 @@ function PublishScreen({ visible, onClose }: Props) {
   const [maxDescriptionLength, setMaxDescriptionLength] = useState(150);
   const [descriptionValue, onChangeDescription] = useInput('');
 
-  useEffect(() => {}, []);
+  const [upload, file] = useUpload();
+  const { upload: uploadThumbnail, image } = useServerUpload();
+
+  useEffect(() => {
+    if (!file) return;
+    uploadThumbnail(file, true);
+  }, [file]);
 
   useEffect(() => {
     let timeoutId: null | ReturnType<typeof setTimeout> = null;
@@ -45,7 +53,7 @@ function PublishScreen({ visible, onClose }: Props) {
         <h2 className={css({ fontSize: '1.125rem', mb: '1rem' })}>
           포스트 미리보기
         </h2>
-        <button className={imageUploadButton}>
+        <button className={imageUploadButton} onClick={upload}>
           <ImImage />
           <span>썸네일 업로드</span>
         </button>
