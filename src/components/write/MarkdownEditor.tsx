@@ -85,7 +85,6 @@ function MarkdownEditor({
     });
 
     if (detectJSDOM()) return;
-    console.log(initialBody);
     cm.setValue(initialBody || '');
     cm.on('change', (cm) => {
       onChangeMarkdown(cm.getValue());

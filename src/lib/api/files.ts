@@ -1,10 +1,17 @@
 export async function uploadImage(file: File, isThumbnail?: boolean) {
-  const response = await fetch('https://imslow.me/api/files/upload', {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  if (isThumbnail) {
+    formData.append('isThumbnail', isThumbnail.toString());
+  }
+
+  const response = await fetch('/api/files/upload', {
     method: 'POST',
-    body: JSON.stringify({
-      file,
-      isThumbnail,
-    }),
+    body: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   });
   return await response.json();
 }

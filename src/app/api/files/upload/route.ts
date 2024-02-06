@@ -5,9 +5,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  const body = await req.json();
-  const file = body.file as File;
-  const isThumbnail = body.isThumbnail as string;
+  const formData = await req.formData();
+  const file = formData.get('file') as File;
+  const isThumbnail = formData.get('isThumbnail') as string;
 
   if (!file) {
     return NextResponse.json(
@@ -21,6 +21,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'POST',
           'Access-Control-Allow-Headers': 'Content-Type',
+          'Content-Type': 'multipart/form-data',
         },
       },
     );
@@ -62,6 +63,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'POST',
           'Access-Control-Allow-Headers': 'Content-Type',
+          'Content-Type': 'multipart/form-data',
         },
       },
     );
@@ -78,6 +80,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'POST',
           'Access-Control-Allow-Headers': 'Content-Type',
+          'Content-Type': 'multipart/form-data',
         },
       },
     );
