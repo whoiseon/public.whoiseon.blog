@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ['static.toss.im', 'lh3.googleusercontent.com'],
+    domains: ['static.toss.im', 'lh3.googleusercontent.com', 'imslow.me'],
   }
 };
 
