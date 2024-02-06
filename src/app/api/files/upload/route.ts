@@ -17,12 +17,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       },
       {
         status: 201,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST',
-          'Access-Control-Allow-Headers': 'Content-Type',
-          'Content-Type': 'multipart/form-data',
-        },
       },
     );
   }
@@ -59,12 +53,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       },
       {
         status: 201,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST',
-          'Access-Control-Allow-Headers': 'Content-Type',
-          'Content-Type': 'multipart/form-data',
-        },
       },
     );
   } catch (e) {
@@ -76,12 +64,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       },
       {
         status: 201,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST',
-          'Access-Control-Allow-Headers': 'Content-Type',
-          'Content-Type': 'multipart/form-data',
-        },
       },
     );
   }
