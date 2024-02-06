@@ -55,7 +55,26 @@ function PublishScreen({ visible, onClose }: Props) {
           포스트 미리보기
         </h2>
         {image ? (
-          <Image src={image} alt={title} width={380} height={213.75} />
+          <div className={thumbnailBox}>
+            <Image
+              className={css({
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                overflow: 'hidden',
+              })}
+              src={image}
+              alt={title}
+              width={380}
+              height={213.75}
+              placeholder="empty"
+              decoding="async"
+              loading="lazy"
+              style={{
+                color: 'transparent',
+              }}
+            />
+          </div>
         ) : (
           <button className={imageUploadButton} onClick={upload}>
             <ImImage />
@@ -182,6 +201,19 @@ const descriptionTextarea = css({
   resize: 'none',
   outline: 'none',
   fontSize: '0.875rem',
+});
+
+const thumbnailBox = css({
+  position: 'relative',
+  flexShrink: 0,
+  sm: {
+    width: '220px',
+    height: '165px',
+  },
+  md: {
+    width: '380px',
+    height: '213.75px',
+  },
 });
 
 export default PublishScreen;
