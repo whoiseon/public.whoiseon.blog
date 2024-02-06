@@ -20,3 +20,12 @@ export async function getPostById(postId: number) {
 
   return await response.json();
 }
+
+export async function getTempPosts() {
+  const response = await fetch('http://localhost:3000/api/post/temp', {
+    method: 'GET',
+    cache: 'no-store',
+  });
+
+  return await response.json();
+}

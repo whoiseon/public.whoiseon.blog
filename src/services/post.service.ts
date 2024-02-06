@@ -157,6 +157,22 @@ export class PostService {
       payload: post,
     };
   }
+
+  public async getTempPosts() {
+    const posts = await db.post.findMany({
+      where: {
+        isTemp: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return {
+      error: '',
+      payload: posts || [],
+    };
+  }
 }
 
 export interface PostWriteParams {
