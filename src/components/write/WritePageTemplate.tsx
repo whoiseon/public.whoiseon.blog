@@ -34,6 +34,7 @@ async function getPreparePost(postId: number): Promise<Publish | null> {
 
 async function WritePageTemplate({ postId }: { postId: number }) {
   const post = await getPreparePost(postId);
+  console.log(post);
   return (
     <PublishStoreProvider post={post}>
       <div className={block}>
