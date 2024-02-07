@@ -8,7 +8,11 @@ const TempCard = dynamic(() => import('@/components/post/TempCard'), {
 
 async function getTempPostList(): Promise<Post[]> {
   const response = await getTempPosts();
-  return response.payload;
+  if (response) {
+    return response.posts;
+  }
+
+  return [];
 }
 
 async function TempSavesPage() {
