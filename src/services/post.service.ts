@@ -159,19 +159,27 @@ export class PostService {
   }
 
   public async getTempPosts() {
-    const posts = await db.post.findMany({
-      where: {
-        isTemp: true,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+    try {
+      const posts = await db.post.findMany({
+        where: {
+          isTemp: true,
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
 
-    return {
-      error: '',
-      payload: posts || [],
-    };
+      return {
+        error: '',
+        payload: posts || [],
+      };
+    } catch (e) {
+      console.error(e);
+      return {
+        error: e,
+        payload: [],
+      };
+    }
   }
 }
 
