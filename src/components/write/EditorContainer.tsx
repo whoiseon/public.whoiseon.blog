@@ -5,7 +5,6 @@ import { useInput } from '@/lib/hooks/useInput';
 import TagInput from '@/components/write/TagInput';
 import { Suspense, useCallback, useEffect, useState } from 'react';
 import WriteFooter from '@/components/write/WriteFooter';
-import MarkdownPreview from '@/components/write/MarkdownPreview';
 import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import { useUpload } from '@/lib/hooks/useUpload';
@@ -20,6 +19,13 @@ import { usePublish } from '@/lib/store/modules/usePublish';
 
 const MarkdownEditor = dynamic(
   () => import('@/components/write/MarkdownEditor'),
+  {
+    ssr: false,
+  },
+);
+
+const MarkdownPreview = dynamic(
+  () => import('@/components/write/MarkdownPreview'),
   {
     ssr: false,
   },
