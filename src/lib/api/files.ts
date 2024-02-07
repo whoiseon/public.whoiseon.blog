@@ -10,5 +10,6 @@ export async function uploadImage(file: File, isThumbnail?: boolean) {
     method: 'POST',
     body: formData,
   });
+
   return await response.json();
 }
