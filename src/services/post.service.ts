@@ -109,6 +109,13 @@ export class PostService {
   }
 
   public async getPostById(postId: number) {
+    if (!postId) {
+      return {
+        error: '포스트를 찾을 수 없습니다.',
+        payload: null,
+      };
+    }
+
     const postInclude: PostInclude = {
       tags: true,
     };

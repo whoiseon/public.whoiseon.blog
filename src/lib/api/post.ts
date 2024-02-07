@@ -34,10 +34,7 @@ export async function getTempPosts() {
       method: 'GET',
     });
 
-    const data = await response.json();
-
-    console.log(data);
-    return data;
+    return await response.json();
   } catch (e) {
     console.log(e);
     return null;
