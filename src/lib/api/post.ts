@@ -7,18 +7,29 @@ export async function writePost(
   const response = await fetch('https://imslow.me/api/post', {
     method: 'POST',
     body: JSON.stringify(params),
+    headers: {
+      Accept: 'application/json',
+    },
   });
 
   return await response.json();
 }
 
 export async function getPostById(postId: number) {
-  const response = await fetch(`https://imslow.me/api/post/${postId}`, {
-    method: 'GET',
-    cache: 'no-store',
-  });
+  try {
+    const response = await fetch(`https://imslow.me/api/post/${postId}`, {
+      method: 'GET',
+      cache: 'no-store',
+      headers: {
+        Accept: 'application/json',
+      },
+    });
 
-  return await response.json();
+    return await response.json();
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 }
 
 export async function getTempPosts() {
@@ -26,6 +37,9 @@ export async function getTempPosts() {
     const response = await fetch('https://imslow.me/api/post/temp', {
       method: 'GET',
       cache: 'no-cache',
+      headers: {
+        Accept: 'application/json',
+      },
     });
 
     return await response.json();
