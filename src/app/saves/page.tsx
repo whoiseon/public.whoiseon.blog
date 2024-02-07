@@ -1,15 +1,9 @@
 import { getTempPosts } from '@/lib/api/post';
-import { Post, ResponsePosts } from '@/lib/api/types';
+import { Post } from '@/lib/api/types';
 import TempCard from '@/components/post/TempCard';
 
 async function getTempPostList(): Promise<Post[]> {
-  const response = await getTempPosts();
-
-  if (response.error) {
-    return [];
-  }
-
-  return response.payload;
+  return getTempPosts();
 }
 
 async function TempSavesPage() {
