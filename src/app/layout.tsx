@@ -6,6 +6,8 @@ import getIsAdmin from '@/app/_actions/getIsAdmin';
 import UserStoreProvider from '@/components/auth/UserStoreProvider';
 import getUser from '@/app/_actions/getUser';
 import Layout from '@/components/base/Layout';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata: Metadata = {
   title: '기록은 나의 빛',
@@ -26,6 +28,7 @@ export default async function RootLayout({
         <Providers>
           <UserStoreProvider user={user}>
             <Layout isAdmin={isAdmin}>{children}</Layout>
+            <ToastContainer />
           </UserStoreProvider>
         </Providers>
       </body>

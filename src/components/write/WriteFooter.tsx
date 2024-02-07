@@ -10,7 +10,7 @@ interface Props {
 }
 
 function WriteFooter({ edit, onPublish, onTempSave }: Props) {
-  const onGoBack = useGoBack();
+  const onGoBack = useGoBack('/');
 
   return (
     <div className={block}>

@@ -92,8 +92,20 @@ export default defineConfig({
         },
         destructive1: {
           value: {
-            _light: '{colors.red.400}',
+            _light: 'rgb(255, 102, 102)',
             _dark: 'rgb(200, 68, 68)',
+          },
+        },
+        destructive2: {
+          value: {
+            _light: 'rgb(236,90,90)',
+            _dark: 'rgb(208,95,95)',
+          },
+        },
+        destructive3: {
+          value: {
+            _light: 'rgb(208,90,90)',
+            _dark: 'rgb(175,59,59)',
           },
         },
         text_reverse: {

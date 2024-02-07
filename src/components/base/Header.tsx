@@ -25,7 +25,7 @@ function Header({ isAdmin }: Props) {
               (user ? (
                 <AuthDropdown />
               ) : (
-                <Button href="/auth/signin" size="md">
+                <Button href="/auth/signin" variant="icon" size="md">
                   로그인
                 </Button>
               ))}

@@ -5,12 +5,30 @@ import Link from 'next/link';
 import { css } from '@styled-system/css';
 import { formatDate, removeImageMarkdown } from '@/lib/utils';
 import Button from '@/components/system/Button';
+import ModalButton from '@/components/system/ModalButton';
+import { deletePost } from '@/lib/api/post';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import { revalidatePath } from 'next/cache';
 
 interface Props {
   post: Post;
+  onDelete: (id: number) => void;
 }
 
-function TempCard({ post }: Props) {
+function TempCard({ post, onDelete }: Props) {
+  const handleDeletePost = async () => {
+    if (!post.id) return;
+    const response = await deletePost(post.id);
+    if (!response.error) {
+      toast.success('임시 저장 글을 삭제했습니다.', {
+        position: 'top-center',
+        autoClose: 1500,
+        pauseOnHover: false,
+      });
+    }
+  };
+
   return (
     <div
       className={css({
@@ -62,10 +80,21 @@ function TempCard({ post }: Props) {
         >
           {formatDate(post.createdAt as string)}
         </span>
-        <Button size="sm">삭제</Button>
+        <ModalButton
+          description="임시 저장한 글을 삭제하시겠습니까?"
+          title="임시 저장 글 삭제"
+          actionText="삭제"
+          actionVariant="destructive"
+          onClick={handleDeletePost}
+        >
+          <Button size="sm">삭제</Button>
+        </ModalButton>
       </section>
     </div>
   );
 }
 
 export default TempCard;
+function useState<T>(arg0: null): [any, any] {
+  throw new Error('Function not implemented.');
+}

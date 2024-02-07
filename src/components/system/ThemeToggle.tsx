@@ -26,7 +26,7 @@ function ThemeToggle({ className }: Props) {
     <div className={className}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="default" size="icon_md">
+          <Button variant="icon" size="icon_md">
             <IoMdSunny
               className={css({
                 width: '26px',

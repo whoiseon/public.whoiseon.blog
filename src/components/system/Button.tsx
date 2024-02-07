@@ -7,7 +7,7 @@ const button = cva({
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
-    rounded: 'full',
+    borderRadius: 'sm',
     transition: 'all 0.1s ease-in-out',
     cursor: 'pointer',
     minWidth: '24px',
@@ -48,14 +48,30 @@ const button = cva({
           color: 'button_text1',
         },
       },
+      destructive: {
+        bg: 'destructive1',
+        color: 'button_text1',
+        _hover: {
+          bg: 'destructive2',
+          color: 'button_text1',
+        },
+        _active: {
+          bg: 'destructive3',
+          color: 'button_text1',
+        },
+      },
       solid: {
         bg: 'bg_element1',
       },
       solidTag: {
+        borderRadius: 'full',
         bg: 'bg_element1',
         _hover: {
           color: 'primary1',
         },
+      },
+      icon: {
+        borderRadius: 'full',
       },
       outline: {
         bg: 'bg_page1',
@@ -95,11 +111,20 @@ const button = cva({
   },
 });
 
+export type ButtonVariants =
+  | 'default'
+  | 'solid'
+  | 'solidTag'
+  | 'outline'
+  | 'destructive'
+  | 'primary'
+  | 'icon';
+
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   layout?: 'fullWidth' | 'inline';
-  variant?: 'default' | 'solid' | 'solidTag' | 'outline' | 'primary';
+  variant?: ButtonVariants;
   size?: 'sm' | 'md' | 'lg' | 'icon_sm' | 'icon_md' | 'icon_lg';
   href?: string;
 }

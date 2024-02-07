@@ -23,7 +23,7 @@ function AuthDropdown({ className }: Props) {
     <div className={className}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="default" size="icon_md">
+          <Button variant="icon" size="icon_md">
             <Image
               src={user?.image || ''}
               alt={user?.email || ''}

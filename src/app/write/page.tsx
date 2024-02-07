@@ -1,6 +1,4 @@
 import { css } from '@styled-system/css';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import PublishStoreProvider from '@/components/write/PublishStoreProvider';
 import { getPostById } from '@/lib/api/post';
 import { Publish } from '@/lib/store/modules/usePublish';
@@ -37,7 +35,6 @@ async function Write({ searchParams }: { searchParams: { id: string } }) {
     <PublishStoreProvider post={post}>
       <div className={block}>
         <EditorContainer />
-        <ToastContainer />
       </div>
     </PublishStoreProvider>
   );
