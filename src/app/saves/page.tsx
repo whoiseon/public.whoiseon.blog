@@ -1,6 +1,10 @@
 import { getTempPosts } from '@/lib/api/post';
 import { Post, ResponsePosts } from '@/lib/api/types';
-import TempCard from '@/components/post/TempCard';
+import dynamic from 'next/dynamic';
+
+const TempCard = dynamic(() => import('@/components/post/TempCard'), {
+  ssr: true,
+});
 
 async function getTempPostList(): Promise<Post[]> {
   const response = await getTempPosts();
