@@ -10,6 +10,9 @@ import { Tag } from '@prisma/client';
 async function getPreparePost(postId: number): Promise<Publish | null> {
   if (!postId) return null;
   const post = await getPostById(postId);
+
+  if (!post.payload) return null;
+
   return {
     id: post.payload.id,
     title: post.payload.title,

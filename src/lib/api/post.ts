@@ -22,8 +22,10 @@ export async function getPostById(postId: number) {
       cache: 'no-cache',
     });
 
-    console.log(await response.json());
-    return await response.json();
+    const data = await response.json();
+
+    console.log(data);
+    return data;
   } catch (e) {
     console.log(e);
     return null;
@@ -37,8 +39,10 @@ export async function getTempPosts() {
       cache: 'no-cache',
     });
 
-    console.log(await response.json());
-    return await response.json();
+    const data = await response.json();
+
+    console.log(data);
+    return data;
   } catch (e) {
     console.log(e);
     return null;
