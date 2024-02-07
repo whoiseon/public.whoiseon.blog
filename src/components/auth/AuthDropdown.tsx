@@ -46,6 +46,16 @@ function AuthDropdown({ className }: Props) {
               글쓰기
             </Link>
           </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link
+              href={'/saves'}
+              className={css({
+                width: '100%',
+              })}
+            >
+              임시 글
+            </Link>
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             className={css({

@@ -9,7 +9,6 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       const authService = new AuthService();
-
       const findUser = await authService.findUser(user?.email as string);
       await authService.createSignInLog(user);
 

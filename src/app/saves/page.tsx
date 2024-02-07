@@ -20,6 +20,7 @@ async function TempSavesPage() {
 
   return (
     <div>
+      {JSON.stringify(posts)}
       <div>
         {posts.map((post) => (
           <TempCard key={post.id} post={post} />
