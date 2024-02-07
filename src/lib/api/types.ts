@@ -7,7 +7,7 @@ export interface Tag {
 export interface Post {
   id?: number;
   title?: string;
-  content?: string;
+  body?: string;
   urlSlug?: string;
   isTemp?: boolean;
   createdAt?: Date;
@@ -25,4 +25,9 @@ export interface ResponsePostWrite {
 export interface ResponsePosts {
   error: string;
   payload: Post[];
+}
+
+export interface ResponsePost {
+  error: string;
+  payload: Post;
 }

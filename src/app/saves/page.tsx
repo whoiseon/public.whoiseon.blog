@@ -1,18 +1,19 @@
-import { getTempPosts } from '@/lib/api/post';
-import { Post, ResponsePosts } from '@/lib/api/types';
+import { ResponsePosts } from '@/lib/api/types';
 import dynamic from 'next/dynamic';
 
 const TempCard = dynamic(() => import('@/components/post/TempCard'), {
   ssr: true,
 });
 
-async function getTempPostList(): Promise<Post[]> {
-  const response = await getTempPosts();
-  if (response) {
-    return response.payload;
-  }
+async function getTempPostList(): Promise<ResponsePosts> {
+  const response = await fetch('https://imslow.me/api/post/temp', {
+    method: 'GET',
+    cache: 'no-cache',
+  });
 
-  return [];
+  if (!response.ok) throw new Error('Failed to fetch temp posts');
+
+  return (await response.json()) as ResponsePosts;
 }
 
 async function TempSavesPage() {
@@ -21,7 +22,7 @@ async function TempSavesPage() {
   return (
     <div>
       <div>
-        {posts.map((post) => (
+        {posts.payload.map((post) => (
           <TempCard key={post.id} post={post} />
         ))}
       </div>
