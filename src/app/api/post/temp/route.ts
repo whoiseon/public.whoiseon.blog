@@ -4,6 +4,7 @@ import { PostService } from '@/services/post.service';
 export async function GET(req: NextRequest, res: NextResponse) {
   const postService = new PostService();
   const tempPosts = await postService.getTempPosts();
+  console.log(tempPosts);
 
   return NextResponse.json(
     {

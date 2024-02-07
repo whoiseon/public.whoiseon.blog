@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PostService, PostWriteParams } from '@/services/post.service';
+import { PostService } from '@/services/post.service';
 
 export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } },
 ) {
-  console.log(params.id);
   const postService = new PostService();
   const postId = params.id;
 

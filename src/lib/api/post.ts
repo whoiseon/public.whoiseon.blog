@@ -18,10 +18,7 @@ export async function getPostById(postId: number) {
       method: 'GET',
     });
 
-    const data = await response.json();
-
-    console.log(data);
-    return data;
+    return await response.json();
   } catch (e) {
     console.log(e);
     return null;
@@ -30,8 +27,9 @@ export async function getPostById(postId: number) {
 
 export async function getTempPosts() {
   try {
-    const response = await fetch('https://imslow.me/api/post/temp', {
+    const response = await fetch('http://localhost:3000/api/post/temp', {
       method: 'GET',
+      cache: 'no-store',
     });
 
     return await response.json();
