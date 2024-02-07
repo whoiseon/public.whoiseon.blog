@@ -3,15 +3,14 @@
 import { css } from '@styled-system/css';
 import { useInput } from '@/lib/hooks/useInput';
 import TagInput from '@/components/write/TagInput';
-import { Suspense, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import WriteFooter from '@/components/write/WriteFooter';
 import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import { useUpload } from '@/lib/hooks/useUpload';
 import { useServerUpload } from '@/lib/hooks/useServerUpload';
-import { getPostById, writePost } from '@/lib/api/post';
+import { writePost } from '@/lib/api/post';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Tag } from '@prisma/client';
 import { toast } from 'react-toastify';
 import PublishScreen from '@/components/write/PublishScreen';
 import { escapeForUrl } from '@/lib/utils';
