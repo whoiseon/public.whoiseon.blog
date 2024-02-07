@@ -203,6 +203,7 @@ export class PostService {
       const posts = await db.post.findMany({
         where: {
           isTemp: true,
+          deletedAt: null,
         },
         orderBy: {
           createdAt: 'desc',
