@@ -22,6 +22,7 @@ export async function getPostById(postId: number) {
       cache: 'no-cache',
     });
 
+    console.log(response);
     return await response.json();
   } catch (e) {
     console.log(e);
@@ -36,6 +37,7 @@ export async function getTempPosts() {
       cache: 'no-cache',
     });
 
+    console.log(response);
     return await response.json();
   } catch (e) {
     console.log(e);
