@@ -2,6 +2,7 @@
 
 import { Post } from '@/lib/api/types';
 import Link from 'next/link';
+import { css } from '@styled-system/css';
 
 interface Props {
   post: Post;
@@ -9,7 +10,12 @@ interface Props {
 
 function TempCard({ post }: Props) {
   return (
-    <div>
+    <div
+      className={css({
+        display: 'flex',
+        flexDirection: 'column',
+      })}
+    >
       <Link href={`/write?id=${post.id}`}>{post.title}</Link>
     </div>
   );
