@@ -1,11 +1,18 @@
 import { css } from '@styled-system/css';
-import EditorContainer from '@/components/write/EditorContainer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PublishStoreProvider from '@/components/write/PublishStoreProvider';
 import { getPostById } from '@/lib/api/post';
 import { Publish } from '@/lib/store/modules/usePublish';
 import { Tag } from '@prisma/client';
+import dynamic from 'next/dynamic';
+
+const EditorContainer = dynamic(
+  () => import('@/components/write/EditorContainer'),
+  {
+    ssr: true,
+  },
+);
 
 async function getPreparePost(postId: number): Promise<Publish | null> {
   if (!postId) return null;
