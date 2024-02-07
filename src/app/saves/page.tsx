@@ -9,7 +9,7 @@ const TempCard = dynamic(() => import('@/components/post/TempCard'), {
 async function getTempPostList(): Promise<Post[]> {
   const response = await getTempPosts();
   if (response) {
-    return response.posts;
+    return response.payload;
   }
 
   return [];
