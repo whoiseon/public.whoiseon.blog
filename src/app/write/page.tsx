@@ -16,25 +16,19 @@ const EditorContainer = dynamic(
 
 async function getPreparePost(postId: number): Promise<Publish | null> {
   if (!postId) return null;
+  const post = await getPostById(postId);
 
-  const response = await fetch(`https://imslow.me/api/post/${postId}`, {
-    method: 'GET',
-    cache: 'no-cache',
-  });
-
-  if (!response.ok) throw new Error('Failed to fetch post');
-
-  const { payload } = await response.json();
+  if (!post.payload) return null;
 
   return {
-    id: payload.id,
-    title: payload.title,
-    tags: payload.tags.map((tag: Tag) => tag.name),
-    body: payload.body,
-    description: payload.description,
-    isTemp: payload.isTemp,
-    thumbnail: payload.thumbnail,
-    urlSlug: payload.urlSlug,
+    id: post.payload.id,
+    title: post.payload.title,
+    tags: post.payload.tags.map((tag: Tag) => tag.name),
+    body: post.payload.body,
+    description: post.payload.description,
+    isTemp: post.payload.isTemp,
+    thumbnail: post.payload.thumbnail,
+    urlSlug: post.payload.urlSlug,
   };
 }
 
