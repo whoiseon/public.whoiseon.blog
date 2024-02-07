@@ -4,7 +4,7 @@ import { ResponsePostWrite } from '@/lib/api/types';
 export async function writePost(
   params: PostWriteParams,
 ): Promise<ResponsePostWrite> {
-  const response = await fetch('/api/post', {
+  const response = await fetch('https://imslow.me/api/post', {
     method: 'POST',
     body: JSON.stringify(params),
   });
@@ -13,7 +13,7 @@ export async function writePost(
 }
 
 export async function getPostById(postId: number) {
-  const response = await fetch(`/api/post/${postId}`, {
+  const response = await fetch(`https://imslow.me/api/post/${postId}`, {
     method: 'GET',
     cache: 'no-store',
   });
@@ -23,7 +23,7 @@ export async function getPostById(postId: number) {
 
 export async function getTempPosts() {
   try {
-    const response = await fetch('/api/post/temp', {
+    const response = await fetch('https://imslow.me/api/post/temp', {
       method: 'GET',
       cache: 'no-cache',
     });
