@@ -1,5 +1,5 @@
 import { getTempPosts } from '@/lib/api/post';
-import { Post, ResponsePosts } from '@/lib/api/types';
+import { Post } from '@/lib/api/types';
 import dynamic from 'next/dynamic';
 
 const TempCard = dynamic(() => import('@/components/post/TempCard'), {
