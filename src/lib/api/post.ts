@@ -22,10 +22,15 @@ export async function getPostById(postId: number) {
 }
 
 export async function getTempPosts() {
-  const response = await fetch('https://imslow.me/api/post/temp', {
-    method: 'GET',
-    cache: 'no-store',
-  });
+  try {
+    const response = await fetch('https://imslow.me/api/post/temp', {
+      method: 'GET',
+      cache: 'no-store',
+    });
 
-  return await response.json();
+    return await response.json();
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 }
