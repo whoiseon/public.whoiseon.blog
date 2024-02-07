@@ -27,7 +27,7 @@ export async function getPostById(postId: number) {
 
 export async function getTempPosts() {
   try {
-    const response = await fetch('http://localhost:3000/api/post/temp', {
+    const response = await fetch('https://imslow.me/api/post/temp', {
       method: 'GET',
       cache: 'no-store',
     });
