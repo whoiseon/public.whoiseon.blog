@@ -19,7 +19,7 @@ export async function getPostById(postId: number) {
   try {
     const response = await fetch(`https://imslow.me/api/post/${postId}`, {
       method: 'GET',
-      cache: 'no-store',
+      cache: 'no-cache',
       headers: {
         Accept: 'application/json',
       },
