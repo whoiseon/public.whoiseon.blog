@@ -38,3 +38,17 @@ export async function getTempPosts() {
     return null;
   }
 }
+
+export async function deletePost(postId: number) {
+  try {
+    const response = await fetch(`https://imslow.me/api/post/${postId}`, {
+      method: 'DELETE',
+      cache: 'no-store',
+    });
+
+    return await response.json();
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}

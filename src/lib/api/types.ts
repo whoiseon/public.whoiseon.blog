@@ -10,8 +10,8 @@ export interface Post {
   body?: string;
   urlSlug?: string;
   isTemp?: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
   tags?: Tag[];
 }
 

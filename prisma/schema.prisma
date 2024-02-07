@@ -37,6 +37,7 @@ model Post {
   isTemp      Boolean   @default(false)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @default(now())
+  deletedAt   DateTime?
   tags        Tag[]
   postTags    PostTag[]
 

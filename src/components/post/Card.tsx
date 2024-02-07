@@ -101,7 +101,7 @@ function Card({ post }: Props) {
         <span
           className={css({
             fontSize: 'sm',
-            color: 'text6',
+            color: 'text5',
             fontWeight: 'normal',
           })}
         >

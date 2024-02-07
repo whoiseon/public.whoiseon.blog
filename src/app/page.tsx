@@ -2,6 +2,7 @@ import { css } from '@styled-system/css';
 import TagItem from '@/components/tag/TagItem';
 import Card, { TestPost } from '@/components/post/Card';
 import Link from 'next/link';
+import PostsTemplate from '@/components/home/PostsTemplate';
 
 const dummyTagList = [
   { id: 1, name: 'react' },
@@ -60,78 +61,41 @@ const dummyPostList: TestPost[] = [
 
 function Home() {
   return (
-    <main className={block}>
-      <h1 className={typography}>최신</h1>
-      <div className={contentBox}>
-        <div className={tagBox}>
-          <ul
-            className={css({
-              display: 'flex',
-              flexDirection: 'row',
-              width: '100%',
-              gap: 2,
-              pl: 3,
-              pr: 4,
-              md: {
-                width: '140px',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                px: 0,
-              },
-            })}
-          >
-            {dummyTagList.map((tag) => (
-              <li className={css({ maxWidth: '300px' })} key={tag.id}>
-                <TagItem name={tag.name} />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className={postBox}>
-          {dummyPostList.map((post) => (
-            <Link href={`/posts/${post.title}`} key={post.postId}>
-              <Card post={post} />
-            </Link>
+    <PostsTemplate title="최신">
+      <div className={tagBox}>
+        <ul
+          className={css({
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            gap: 2,
+            pl: 3,
+            pr: 4,
+            md: {
+              width: '140px',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              px: 0,
+            },
+          })}
+        >
+          {dummyTagList.map((tag) => (
+            <li className={css({ maxWidth: '300px' })} key={tag.id}>
+              <TagItem name={tag.name} />
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </main>
+      <div className={postBox}>
+        {dummyPostList.map((post) => (
+          <Link href={`/posts/${post.title}`} key={post.postId}>
+            <Card post={post} />
+          </Link>
+        ))}
+      </div>
+    </PostsTemplate>
   );
 }
-
-const block = css({
-  mx: 'auto',
-  maxWidth: '4xl',
-  height: '100%',
-});
-
-const typography = css({
-  fontSize: 'xl',
-  fontWeight: 'semibold',
-  lineHeight: 'tight',
-  color: 'text1',
-  my: 4,
-  py: 4,
-  px: 4,
-  md: {
-    fontSize: '3xl',
-    mt: 14,
-    mb: 8,
-    px: 0,
-  },
-});
-
-const contentBox = css({
-  display: 'flex',
-  flexDir: 'column',
-  height: '100%',
-  gap: 4,
-  md: {
-    gap: 8,
-    flexDir: 'row-reverse',
-    alignItems: 'flex-start',
-  },
-});
 
 const postBox = css({
   flex: 1,

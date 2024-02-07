@@ -1,3 +1,30 @@
+import { format, formatDistanceToNow } from 'date-fns';
+import { ko } from 'date-fns/locale';
+
+export function formatDate(date: string): string {
+  const d = new Date(date);
+  const now = Date.now();
+  const diff = now - d.getTime();
+
+  if (diff < 1000 * 60 * 5) return '방금 전';
+
+  if (diff < 1000 * 60 * 60 * 24) {
+    const result = formatDistanceToNow(d, { addSuffix: true, locale: ko });
+    // 약 2시간 전 -> 2시간 전
+    return result.replace('약 ', '');
+  }
+
+  if (diff < 1000 * 60 * 60 * 36) {
+    return '어제';
+  }
+
+  if (diff < 1000 * 60 * 60 * 24 * 7) {
+    return formatDistanceToNow(d, { addSuffix: true, locale: ko });
+  }
+
+  return format(d, 'yyyy년 M월 d일');
+}
+
 export function detectIOS() {
   const checkAgent =
     /iphone|ipod|ipad/i.test(navigator.userAgent) && !(window as any).MSStream;
@@ -24,4 +51,8 @@ export function escapeForUrl(text: string): string {
     .trim()
     .replace(/ /g, '-')
     .replace(/--+/g, '-');
+}
+
+export function removeImageMarkdown(text: string): string {
+  return text.replace(/!\[.*?]\(.*?\)/g, '');
 }

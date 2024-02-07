@@ -108,6 +108,31 @@ export class PostService {
     };
   }
 
+  public async postDelete(postId: number) {
+    if (!postId) {
+      return {
+        error: '포스트를 찾을 수 없습니다.',
+        payload: null,
+      };
+    }
+
+    await db.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
+
+    return {
+      error: '',
+      payload: {
+        postId,
+      },
+    };
+  }
+
   public async getPostById(postId: number) {
     if (!postId) {
       return {
