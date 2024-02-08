@@ -2,8 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { PostService } from '@/services/post.service';
 
 export async function GET(req: NextRequest, res: NextResponse) {
+  const url = new URL(req.url);
+  const cursor = url.searchParams.get('cursor');
   const postService = new PostService();
-  const tempPosts = await postService.getTempPosts();
+  const tempPosts = await postService.getTempPosts(
+    cursor ? Number(cursor) : undefined,
+  );
 
   return NextResponse.json(
     {

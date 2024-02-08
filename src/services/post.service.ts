@@ -190,7 +190,7 @@ export class PostService {
     };
   }
 
-  public async getTempPosts() {
+  public async getTempPosts(cursor?: number) {
     try {
       const postSelect: PostSelect = {
         id: true,
@@ -206,9 +206,16 @@ export class PostService {
           deletedAt: null,
         },
         orderBy: {
-          createdAt: 'desc',
+          id: 'desc',
         },
         select: postSelect,
+        skip: cursor ? 1 : 0,
+        take: 10,
+        cursor: cursor
+          ? {
+              id: cursor,
+            }
+          : undefined,
       });
 
       return {

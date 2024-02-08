@@ -4,7 +4,7 @@ import { ResponsePostWrite } from '@/lib/api/types';
 export async function writePost(
   params: PostWriteParams,
 ): Promise<ResponsePostWrite> {
-  const response = await fetch('https://imslow.me/api/post', {
+  const response = await fetch('http://localhost:3000/api/post', {
     method: 'POST',
     body: JSON.stringify(params),
   });
@@ -14,7 +14,7 @@ export async function writePost(
 
 export async function getPostById(postId: number) {
   try {
-    const response = await fetch(`https://imslow.me/api/post/${postId}`, {
+    const response = await fetch(`http://localhost:3000/api/post/${postId}`, {
       method: 'GET',
     });
 
@@ -25,15 +25,18 @@ export async function getPostById(postId: number) {
   }
 }
 
-export async function getTempPosts() {
+export async function getTempPosts(cursor?: number) {
   try {
-    const response = await fetch('https://imslow.me/api/post/temp', {
-      method: 'GET',
-      cache: 'no-store',
-      next: {
-        tags: ['tempPost'],
+    const response = await fetch(
+      `http://localhost:3000/api/post/temp${cursor ? `?cursor=${cursor}` : ''}`,
+      {
+        method: 'GET',
+        cache: 'no-store',
+        next: {
+          tags: ['tempPost'],
+        },
       },
-    });
+    );
 
     return await response.json();
   } catch (e) {
@@ -44,7 +47,7 @@ export async function getTempPosts() {
 
 export async function deletePost(postId: number) {
   try {
-    const response = await fetch(`https://imslow.me/api/post/${postId}`, {
+    const response = await fetch(`http://localhost:3000/api/post/${postId}`, {
       method: 'DELETE',
       cache: 'no-store',
     });

@@ -56,3 +56,26 @@ export function escapeForUrl(text: string): string {
 export function removeImageMarkdown(text: string): string {
   return text.replace(/!\[.*?]\(.*?\)/g, '');
 }
+
+export function safe<T>(callback: () => T) {
+  try {
+    return callback();
+  } catch (e) {
+    return null;
+  }
+}
+
+export function getScrollTop() {
+  if (!document.body) return 0;
+  return document.documentElement
+    ? document.documentElement.scrollTop || document.body.scrollTop
+    : document.body.scrollTop;
+}
+
+export function getScrollBottom() {
+  if (!document.body) return 0;
+  const { scrollHeight } = document.body;
+  const { innerHeight } = window;
+  const scrollTop = getScrollTop();
+  return scrollHeight - innerHeight - scrollTop;
+}

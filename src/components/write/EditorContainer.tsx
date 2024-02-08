@@ -37,10 +37,10 @@ function EditorContainer() {
   const searchParams = useSearchParams();
   const postId = searchParams.get('id') || undefined;
 
-  const [title, onChangeTitle, setTitle] = useInput('');
-  const [tags, setTags] = useState<string[]>([]);
+  const [title, onChangeTitle, setTitle] = useInput(post?.title || '');
+  const [tags, setTags] = useState<string[]>(post?.tags || []);
   const [markdown, setMarkdown] = useState<string>('');
-  const [initialBody, setInitialBody] = useState<string>('');
+  const [initialBody, setInitialBody] = useState<string>(post?.body || '');
   const [published, setPublished] = useState<boolean>(false);
 
   const [upload, file] = useUpload();
@@ -51,7 +51,7 @@ function EditorContainer() {
   const { theme, systemTheme } = useTheme();
   const { successToast, errorToast } = useToast();
 
-  const onPublish = () => {
+  const onPublish = useCallback(() => {
     setPublishStore({
       id: Number(postId),
       title,
@@ -76,7 +76,7 @@ function EditorContainer() {
     }
 
     setPublished(true);
-  };
+  }, [title, tags, markdown]);
 
   const onTempSave = useCallback(async () => {
     if (!title || !markdown) {
@@ -120,7 +120,6 @@ function EditorContainer() {
     if (!post) return;
     setTitle(post.title);
     setTags(post.tags);
-    setMarkdown(post.body);
     setInitialBody(post.body);
   };
 
