@@ -13,22 +13,10 @@ import { revalidatePath } from 'next/cache';
 
 interface Props {
   post: Post;
-  onDelete: (id: number) => void;
+  onDelete: Function;
 }
 
 function TempCard({ post, onDelete }: Props) {
-  const handleDeletePost = async () => {
-    if (!post.id) return;
-    const response = await deletePost(post.id);
-    if (!response.error) {
-      toast.success('임시 저장 글을 삭제했습니다.', {
-        position: 'top-center',
-        autoClose: 1500,
-        pauseOnHover: false,
-      });
-    }
-  };
-
   return (
     <div
       className={css({
@@ -85,7 +73,7 @@ function TempCard({ post, onDelete }: Props) {
           title="임시 저장 글 삭제"
           actionText="삭제"
           actionVariant="destructive"
-          onClick={handleDeletePost}
+          onClick={() => onDelete(post.id)}
         >
           <Button size="sm">삭제</Button>
         </ModalButton>

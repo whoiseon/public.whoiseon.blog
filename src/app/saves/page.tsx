@@ -7,6 +7,7 @@ import { useUser } from '@/lib/store/modules/useUser';
 import getUser from '@/app/_actions/getUser';
 import { redirect } from 'next/navigation';
 import { rewriteDefault } from '@vue/compiler-sfc';
+import SavedPosts from '@/components/saves/SavedPosts';
 
 async function getTempPostList(): Promise<Post[]> {
   const response = await getTempPosts();
@@ -27,25 +28,8 @@ async function TempSavesPage() {
 
   return (
     <PostsTemplate title="임시 글 목록">
-      <div className={postBox}>
-        {posts.map((post) => (
-          <TempCard key={post.id} post={post} />
-        ))}
-      </div>
+      <SavedPosts posts={posts} />
     </PostsTemplate>
   );
 }
-
-const postBox = css({
-  flex: 1,
-  display: 'flex',
-  flexDir: 'column',
-  px: 4,
-  gap: 10,
-  md: {
-    px: 0,
-    gap: 16,
-  },
-});
-
 export default TempSavesPage;

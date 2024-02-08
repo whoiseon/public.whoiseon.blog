@@ -16,7 +16,7 @@ interface Props {
   description: string;
   actionText?: string;
   actionVariant?: ButtonVariants;
-  onClick?: () => void;
+  onClick?: Function;
 }
 
 function ModalButton({
@@ -25,7 +25,7 @@ function ModalButton({
   description,
   actionText,
   actionVariant = 'primary',
-  onClick = () => {},
+  onClick = Function,
 }: Props) {
   return (
     <Dialog>
@@ -108,7 +108,7 @@ function ModalButton({
                   py: '0.5rem',
                   px: '1.5rem',
                 })}
-                onClick={onClick}
+                onClick={() => onClick()}
               >
                 {actionText ? actionText : '확인'}
               </Button>
