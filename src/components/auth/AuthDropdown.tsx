@@ -20,59 +20,57 @@ function AuthDropdown({ className }: Props) {
   const { user } = useUser();
 
   return (
-    <div className={className}>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="icon" size="icon_md">
-            <Image
-              src={user?.image || ''}
-              alt={user?.email || ''}
-              width={26}
-              height={26}
-              className={css({
-                borderRadius: 'full',
-              })}
-            />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem>
-            <Link
-              href={'/write'}
-              className={css({
-                width: '100%',
-              })}
-            >
-              글쓰기
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link
-              href={'/saves'}
-              className={css({
-                width: '100%',
-              })}
-            >
-              임시 글
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="icon" size="icon_md">
+          <Image
+            src={user?.image || ''}
+            alt={user?.email || ''}
+            width={26}
+            height={26}
             className={css({
-              _hover: {
-                bg: 'destructive1 !important',
-                _light: {
-                  color: 'white',
-                },
-              },
+              borderRadius: 'full',
             })}
-            onClick={() => signOut()}
+          />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem>
+          <Link
+            href={'/write'}
+            className={css({
+              width: '100%',
+            })}
           >
-            <span>로그아웃</span>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+            글쓰기
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link
+            href={'/saves'}
+            className={css({
+              width: '100%',
+            })}
+          >
+            임시 글
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          className={css({
+            _hover: {
+              bg: 'destructive1 !important',
+              _light: {
+                color: 'white',
+              },
+            },
+          })}
+          onClick={() => signOut()}
+        >
+          <span>로그아웃</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 

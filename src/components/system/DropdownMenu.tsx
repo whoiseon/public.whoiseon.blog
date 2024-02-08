@@ -29,9 +29,6 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={`${css({
-        position: 'absolute',
-        top: '0',
-        left: '0',
         zIndex: 50,
         minWidth: '8rem',
         overflow: 'hidden',

@@ -5,16 +5,16 @@ import { useInput } from '@/lib/hooks/useInput';
 import TagInput from '@/components/write/TagInput';
 import { useCallback, useEffect, useState } from 'react';
 import WriteFooter from '@/components/write/WriteFooter';
-import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import { useUpload } from '@/lib/hooks/useUpload';
 import { useServerUpload } from '@/lib/hooks/useServerUpload';
 import { writePost } from '@/lib/api/post';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { toast } from 'react-toastify';
 import PublishScreen from '@/components/write/PublishScreen';
 import { escapeForUrl } from '@/lib/utils';
 import { usePublish } from '@/lib/store/modules/usePublish';
+import { useToast } from '@/lib/hooks/useToast';
+import { useTheme } from 'next-themes';
 
 const MarkdownEditor = dynamic(
   () => import('@/components/write/MarkdownEditor'),
@@ -49,6 +49,7 @@ function EditorContainer() {
   const [imageBlobUrl, setImageBlobUrl] = useState<string | null>(null);
 
   const { theme, systemTheme } = useTheme();
+  const { successToast, errorToast } = useToast();
 
   const onPublish = () => {
     setPublishStore({
@@ -63,21 +64,13 @@ function EditorContainer() {
     });
 
     if (!title || !markdown) {
-      toast.error('제목 또는 본문이 비어있습니다.', {
-        position: 'top-center',
-        autoClose: 2000,
-        pauseOnHover: false,
-        theme: theme || systemTheme,
-      });
+      successToast('제목 또는 본문이 비어있습니다.');
       return;
     }
 
     if (tags.length < 1) {
-      toast.error('태그를 하나 이상 입력해주세요.', {
-        position: 'top-center',
+      errorToast('태그를 하나 이상 입력해주세요.', {
         autoClose: 2000,
-        pauseOnHover: false,
-        theme: theme || systemTheme,
       });
       return;
     }
@@ -87,11 +80,8 @@ function EditorContainer() {
 
   const onTempSave = useCallback(async () => {
     if (!title || !markdown) {
-      toast.error('제목 또는 본문이 비어있습니다.', {
-        position: 'top-center',
+      errorToast('제목 또는 본문이 비어있습니다.', {
         autoClose: 2000,
-        pauseOnHover: false,
-        theme: theme || systemTheme,
       });
       return;
     }
@@ -108,12 +98,7 @@ function EditorContainer() {
     });
 
     if (response.payload.postId) {
-      toast.success('포스트가 임시저장되었습니다.', {
-        position: 'top-center',
-        autoClose: 2000,
-        pauseOnHover: false,
-        theme: theme || systemTheme,
-      });
+      successToast('포스트가 임시저장되었습니다.');
 
       router.push(`/write?id=${response.payload.postId}`);
     }

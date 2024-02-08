@@ -5,24 +5,21 @@ import TempCard from '@/components/post/TempCard';
 import { css } from '@styled-system/css';
 import { useState } from 'react';
 import { deletePost } from '@/lib/api/post';
-import { toast } from 'react-toastify';
+import { useToast } from '@/lib/hooks/useToast';
 
 interface Props {
   posts: Post[];
 }
 
 function SavedPosts({ posts }: Props) {
+  const { successToast } = useToast();
   const [postList, setPostList] = useState<Post[]>(posts);
 
   const handleDeletePost = async (postId: number) => {
     if (!postId) return;
     const response = await deletePost(postId);
     if (!response.error) {
-      toast.success('임시 저장 글을 삭제했습니다.', {
-        position: 'top-center',
-        autoClose: 1500,
-        pauseOnHover: false,
-      });
+      successToast('임시 저장 글을 삭제했습니다.');
       setPostList((prev) => prev.filter((post) => post.id !== postId));
     }
   };

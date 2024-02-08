@@ -19,6 +19,7 @@ const DialogOverlay = React.forwardRef<
     />
   </DialogPrimitive.Portal>
 ));
+DialogOverlay.displayName = 'DialogOverlay';
 
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.DialogContent>,
