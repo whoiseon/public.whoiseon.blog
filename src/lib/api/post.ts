@@ -4,7 +4,7 @@ import { ResponsePostWrite } from '@/lib/api/types';
 export async function writePost(
   params: PostWriteParams,
 ): Promise<ResponsePostWrite> {
-  const response = await fetch('http://localhost:3000/api/post', {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/post`, {
     method: 'POST',
     body: JSON.stringify(params),
   });
@@ -14,9 +14,12 @@ export async function writePost(
 
 export async function getPostById(postId: number) {
   try {
-    const response = await fetch(`http://localhost:3000/api/post/${postId}`, {
-      method: 'GET',
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_HOST}/api/post/${postId}`,
+      {
+        method: 'GET',
+      },
+    );
 
     return await response.json();
   } catch (e) {
@@ -28,7 +31,7 @@ export async function getPostById(postId: number) {
 export async function getTempPosts(cursor?: number) {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/post/temp${cursor ? `?cursor=${cursor}` : ''}`,
+      `${process.env.NEXT_PUBLIC_API_HOST}/api/post/temp${cursor ? `?cursor=${cursor}` : ''}`,
       {
         method: 'GET',
         cache: 'no-store',
@@ -47,10 +50,13 @@ export async function getTempPosts(cursor?: number) {
 
 export async function deletePost(postId: number) {
   try {
-    const response = await fetch(`http://localhost:3000/api/post/${postId}`, {
-      method: 'DELETE',
-      cache: 'no-store',
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_HOST}/api/post/${postId}`,
+      {
+        method: 'DELETE',
+        cache: 'no-store',
+      },
+    );
 
     return await response.json();
   } catch (e) {
