@@ -27,6 +27,14 @@ function SavedPosts({ posts }: Props) {
     }
   };
 
+  if (postList.length === 0) {
+    return (
+      <div className={postBox}>
+        <div className={empty}>임시 저장한 글이 없네요!</div>
+      </div>
+    );
+  }
+
   return (
     <div className={postBox}>
       {postList.map((post) => (
@@ -46,6 +54,13 @@ const postBox = css({
     px: 0,
     gap: 16,
   },
+});
+
+const empty = css({
+  py: '4rem',
+  textAlign: 'center',
+  fontSize: '1.5rem',
+  color: 'text3',
 });
 
 export default SavedPosts;
