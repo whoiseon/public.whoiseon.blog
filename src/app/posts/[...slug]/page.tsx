@@ -15,7 +15,8 @@ async function getPost(slug: string) {
 }
 
 export async function generateStaticParams() {
-  const response = await getPosts({});
+  const response = (await getPosts({})) || { payload: [] };
+
   return response.payload.map((post: Post) => ({
     slugs: post.urlSlug,
   }));
