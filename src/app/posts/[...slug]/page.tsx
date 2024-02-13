@@ -5,10 +5,12 @@ import { notFound } from 'next/navigation';
 
 export const runtime = 'nodejs';
 
+type PageParams = {
+  slug: string[];
+};
+
 interface Props {
-  params: {
-    slug: string[];
-  };
+  params: PageParams;
 }
 
 async function getPost(slug: string) {
@@ -16,11 +18,11 @@ async function getPost(slug: string) {
   return response.payload;
 }
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<PageParams[]> {
   const response = (await getPosts({})) || { payload: [] };
 
   return response.payload.map((post: Post) => ({
-    slugs: post.urlSlug,
+    slug: post.urlSlug?.split('/'),
   }));
 }
 
@@ -32,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = post?.title;
   const description = post?.description;
   const url = post?.urlSlug && `https://imslow.me/posts/${post.urlSlug}`;
-  const ogImage = post?.thumbnail ? post.thumbnail : '';
+  const ogImage = post?.thumbnail ? post.thumbnail : '/opengraph-image.png';
 
   return {
     title,
@@ -55,7 +57,7 @@ async function PostPage({ params }: Props) {
     return notFound();
   }
 
-  return <div>post</div>;
+  return <div>{post.title}</div>;
 }
 
 export default PostPage;
