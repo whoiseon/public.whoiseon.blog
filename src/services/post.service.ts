@@ -193,9 +193,11 @@ export class PostService {
 
   public async getPosts({
     cursor,
+    tag,
     isTemp,
   }: {
     cursor?: number;
+    tag?: string;
     isTemp?: boolean;
   }) {
     try {
@@ -222,6 +224,14 @@ export class PostService {
         deletedAt: null,
         isTemp: isTemp || false,
       };
+
+      if (tag) {
+        postsWhereInput.tags = {
+          some: {
+            name: tag,
+          },
+        };
+      }
 
       const posts = await db.post.findMany({
         where: postsWhereInput,

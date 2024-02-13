@@ -23,9 +23,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
 export async function GET(req: NextRequest, res: NextResponse) {
   const url = new URL(req.url);
   const cursor = url.searchParams.get('cursor');
+  const tag = url.searchParams.get('tag');
+
   const postService = new PostService();
   const posts = await postService.getPosts({
     cursor: cursor ? Number(cursor) : undefined,
+    tag: tag || '',
     isTemp: false,
   });
 

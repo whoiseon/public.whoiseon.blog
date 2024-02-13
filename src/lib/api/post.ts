@@ -28,10 +28,17 @@ export async function getPostById(postId: number) {
   }
 }
 
-export async function getPosts(cursor?: number) {
+export async function getPosts({
+  cursor,
+  tag,
+}: {
+  cursor?: number;
+  tag?: string;
+}) {
   try {
     const params = new URLSearchParams({
       cursor: cursor?.toString() || '',
+      tag: tag || '',
     });
 
     const response = await fetch(

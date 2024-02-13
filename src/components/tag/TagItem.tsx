@@ -26,7 +26,7 @@ function TagItem({ name, isText, onClick, className = '' }: TestTagItem) {
   return (
     <Button
       className={className}
-      href={`/${name}`}
+      href={`?tag=${name}`}
       variant="solidTag"
       size="sm"
     >

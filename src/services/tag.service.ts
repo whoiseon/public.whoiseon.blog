@@ -5,8 +5,28 @@ export class TagService {
   constructor() {}
 
   public async getTags() {
+    const tags = await db.tag.findMany({
+      where: {
+        posts: {
+          some: {
+            isTemp: false,
+          },
+        },
+      },
+      orderBy: {
+        name: 'asc',
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+
     try {
-      return await db.tag.findMany();
+      return {
+        error: '',
+        payload: tags,
+      };
     } catch (e) {
       console.log(e);
     }

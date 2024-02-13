@@ -4,33 +4,31 @@ import { css } from '@styled-system/css';
 import TagItem from '@/components/tag/TagItem';
 import Link from 'next/link';
 import Card from '@/components/post/Card';
-import { Post } from '@/lib/api/types';
+import { Post, Tag } from '@/lib/api/types';
 import { safe } from '@/lib/utils';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getPosts } from '@/lib/api/post';
 import { useScrollPagination } from '@/lib/hooks/useScrollPagination';
-
-const dummyTagList = [
-  { id: 1, name: 'react' },
-  { id: 2, name: 'node' },
-  { id: 3, name: 'typescript' },
-  { id: 4, name: 'C#' },
-  { id: 5, name: 'nextjs' },
-  { id: 6, name: 'devops' },
-  { id: 7, name: 'aws' },
-];
+import { useSearchParams } from 'next/navigation';
 
 interface Props {
   posts: Post[];
+  tags: Tag[];
 }
 
-function HomePosts({ posts }: Props) {
+function HomePosts({ posts, tags }: Props) {
+  const params = useSearchParams();
+  const tag = params.get('tag') || '';
+
   const cursor = safe(() => (posts ? posts[posts.length - 1].id : null));
   const [data, setData] = useState<Post[]>(posts);
 
   const handleLoadMore = useCallback(
     async (cursor: number) => {
-      const newPosts = await getPosts(cursor);
+      const newPosts = await getPosts({
+        cursor,
+        tag,
+      });
       if (newPosts && newPosts.payload.length === 0) return;
       setData((prev) => [...prev, ...newPosts.payload]);
     },
@@ -45,14 +43,6 @@ function HomePosts({ posts }: Props) {
   useEffect(() => {
     setData(posts);
   }, [posts]);
-
-  if (data.length === 0) {
-    return (
-      <div className={postBox}>
-        <div className={empty}>작성한 글이 없네요!</div>
-      </div>
-    );
-  }
 
   return (
     <>
@@ -73,19 +63,23 @@ function HomePosts({ posts }: Props) {
             },
           })}
         >
-          {dummyTagList.map((tag) => (
+          {tags.map((tag) => (
             <li className={css({ maxWidth: '300px' })} key={tag.id}>
-              <TagItem name={tag.name} />
+              <TagItem name={tag.name as string} />
             </li>
           ))}
         </ul>
       </div>
       <div className={postBox}>
-        {data.map((post) => (
-          <Link href={`/posts/${post.urlSlug}`} key={post.id}>
-            <Card post={post} />
-          </Link>
-        ))}
+        {data.length > 0 ? (
+          data.map((post) => (
+            <Link href={`/posts/${post.urlSlug}`} key={post.id}>
+              <Card post={post} />
+            </Link>
+          ))
+        ) : (
+          <div className={empty}>작성한 글이 없네요!</div>
+        )}
       </div>
     </>
   );
