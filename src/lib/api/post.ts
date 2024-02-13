@@ -28,6 +28,22 @@ export async function getPostById(postId: number) {
   }
 }
 
+export async function getPostBySlug(slug: string) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_HOST}/api/post/slug/${slug}`,
+      {
+        method: 'GET',
+      },
+    );
+
+    return await response.json();
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
 export async function getPosts({
   cursor,
   tag,

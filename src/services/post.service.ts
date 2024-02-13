@@ -166,7 +166,7 @@ export class PostService {
     };
   }
 
-  public async getPostByIdWithSlug(urlSlug: string, postId: number) {
+  public async getPostBySlug(urlSlug: string) {
     const postInclude: PostInclude = {
       tags: true,
     };
@@ -218,6 +218,7 @@ export class PostService {
         postSelect.thumbnail = true;
         postSelect.urlSlug = true;
         postSelect.description = true;
+        postSelect.body = false;
       }
 
       const postsWhereInput: PostWhereInput = {
