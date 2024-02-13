@@ -28,16 +28,38 @@ export async function getPostById(postId: number) {
   }
 }
 
-export async function getTempPosts(cursor?: number) {
+export async function getPosts(cursor?: number) {
   try {
+    const params = new URLSearchParams({
+      cursor: cursor?.toString() || '',
+    });
+
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_HOST}/api/post/temp${cursor ? `?cursor=${cursor}` : ''}`,
+      `${process.env.NEXT_PUBLIC_API_HOST}/api/post?${params}`,
       {
         method: 'GET',
         cache: 'no-store',
-        next: {
-          tags: ['tempPost'],
-        },
+      },
+    );
+
+    return await response.json();
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+export async function getTempPosts(cursor?: number) {
+  try {
+    const params = new URLSearchParams({
+      cursor: cursor?.toString() || '',
+    });
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_HOST}/api/post/temp?${params}`,
+      {
+        method: 'GET',
+        cache: 'no-store',
       },
     );
 

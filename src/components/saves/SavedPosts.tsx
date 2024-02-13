@@ -32,7 +32,6 @@ function SavedPosts({ posts }: Props) {
     async (cursor: number) => {
       const newPosts = await getTempPosts(cursor);
       if (newPosts && newPosts.payload.length === 0) return;
-      console.log(newPosts.payload);
       setData((prev) => [...prev, ...newPosts.payload]);
     },
     [data],

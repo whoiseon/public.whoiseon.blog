@@ -3,23 +3,12 @@
 import { css } from '@styled-system/css';
 import Image from 'next/image';
 import { useState } from 'react';
-
-export interface TestPost {
-  postId: number;
-  title: string;
-  description: string;
-  createdAt: string;
-  tags: TestTag[];
-  thumbnail: string;
-}
-
-export interface TestTag {
-  id: number;
-  name: string;
-}
+import { Post } from '@/lib/api/types';
+import { formatDate } from '@/lib/utils';
+import { MdBrokenImage } from '@react-icons/all-files/md/MdBrokenImage';
 
 interface Props {
-  post: TestPost;
+  post: Post;
 }
 
 function Card({ post }: Props) {
@@ -46,7 +35,7 @@ function Card({ post }: Props) {
           <Image
             className={`${thumbnailStyle} ${cardHover ? thumbnailAnimation : ''}`}
             src={thumbnail}
-            alt={title}
+            alt={title as string}
             width={250}
             height={165}
             placeholder="empty"
@@ -57,7 +46,16 @@ function Card({ post }: Props) {
             }}
           />
         ) : (
-          <div className={emptyThumbnailStyle} />
+          <div
+            className={`${emptyThumbnailStyle} ${cardHover ? thumbnailAnimation : ''}`}
+          >
+            <MdBrokenImage />
+            <span>
+              썸네일 이미지가
+              <br />
+              없습니다
+            </span>
+          </div>
         )}
       </div>
       <div className={postInfoBox}>
@@ -105,7 +103,7 @@ function Card({ post }: Props) {
             fontWeight: 'normal',
           })}
         >
-          {createdAt}
+          {formatDate(createdAt as string)}
         </span>
       </div>
     </div>
@@ -138,6 +136,7 @@ const thumbnailBox = css({
 const thumbnailStyle = css({
   width: '100%',
   height: '100%',
+  maxHeight: '200px',
   objectFit: 'cover',
   overflow: 'hidden',
   transition: 'all 0.2s ease-in-out',
@@ -149,12 +148,27 @@ const thumbnailAnimation = css({
 });
 
 const emptyThumbnailStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  gap: '1rem',
+  alignItems: 'center',
+  textAlign: 'center',
+  color: 'text6',
+  fontSize: 'sm',
+  fontWeight: 'bold',
   width: '100%',
   height: '100%',
+  minHeight: '200px',
+  maxHeight: '200px',
   backgroundColor: 'bg_element1',
-  border: '1px solid',
-  borderColor: 'outline1',
   transition: 'all 0.2s ease-in-out',
+  '& svg': {
+    fontSize: '3rem',
+  },
+  '& span': {
+    lineHeight: '1.2',
+  },
 });
 
 const titleAnimation = css({

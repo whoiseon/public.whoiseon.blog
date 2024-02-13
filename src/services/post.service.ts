@@ -5,6 +5,7 @@ import { TagService } from '@/services/tag.service';
 import PostUpdateInput = Prisma.PostUpdateInput;
 import PostInclude = Prisma.PostInclude;
 import PostSelect = Prisma.PostSelect;
+import PostWhereInput = Prisma.PostWhereInput;
 
 export class PostService {
   private readonly tagService: TagService = new TagService();
@@ -190,7 +191,13 @@ export class PostService {
     };
   }
 
-  public async getTempPosts(cursor?: number) {
+  public async getPosts({
+    cursor,
+    isTemp,
+  }: {
+    cursor?: number;
+    isTemp?: boolean;
+  }) {
     try {
       const postSelect: PostSelect = {
         id: true,
@@ -200,11 +207,24 @@ export class PostService {
         updatedAt: true,
       };
 
+      if (!isTemp) {
+        postSelect.tags = {
+          select: {
+            name: true,
+          },
+        };
+        postSelect.thumbnail = true;
+        postSelect.urlSlug = true;
+        postSelect.description = true;
+      }
+
+      const postsWhereInput: PostWhereInput = {
+        deletedAt: null,
+        isTemp: isTemp || false,
+      };
+
       const posts = await db.post.findMany({
-        where: {
-          isTemp: true,
-          deletedAt: null,
-        },
+        where: postsWhereInput,
         orderBy: {
           id: 'desc',
         },

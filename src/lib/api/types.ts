@@ -1,7 +1,7 @@
 export interface Tag {
-  id: number;
-  name: string;
-  createdAt: string;
+  id?: number;
+  name?: string;
+  createdAt?: string;
 }
 
 export interface Post {
@@ -9,6 +9,8 @@ export interface Post {
   title?: string;
   body?: string;
   urlSlug?: string;
+  description?: string;
+  thumbnail?: string;
   isTemp?: boolean;
   createdAt?: string;
   updatedAt?: string;
