@@ -3,6 +3,8 @@ import { Post } from '@/lib/api/types';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+export const runtime = 'nodejs';
+
 interface Props {
   params: {
     slug: string[];
