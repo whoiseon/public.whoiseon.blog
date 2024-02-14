@@ -37,7 +37,7 @@ function Card({ post }: Props) {
             src={thumbnail}
             alt={title as string}
             width={250}
-            height={165}
+            height={200}
             placeholder="empty"
             decoding="async"
             loading="lazy"
@@ -137,6 +137,7 @@ const thumbnailStyle = css({
   width: '100%',
   height: '100%',
   maxHeight: '200px',
+  aspectRatio: '4 / 3',
   objectFit: 'cover',
   overflow: 'hidden',
   transition: 'all 0.2s ease-in-out',
@@ -159,8 +160,7 @@ const emptyThumbnailStyle = css({
   fontWeight: 'bold',
   width: '100%',
   height: '100%',
-  minHeight: '200px',
-  maxHeight: '200px',
+  aspectRatio: '16 / 9',
   backgroundColor: 'bg_element1',
   transition: 'all 0.2s ease-in-out',
   '& svg': {

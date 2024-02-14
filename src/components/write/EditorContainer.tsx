@@ -120,6 +120,7 @@ function EditorContainer() {
     if (!post) return;
     setTitle(post.title);
     setTags(post.tags);
+    setMarkdown(post.body);
     setInitialBody(post.body);
   };
 

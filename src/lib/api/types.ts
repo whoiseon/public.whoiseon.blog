@@ -15,6 +15,8 @@ export interface Post {
   createdAt?: string;
   updatedAt?: string;
   tags?: Tag[];
+  prevPost?: Post;
+  nextPost?: Post;
 }
 
 export interface ResponsePostWrite {

@@ -5,7 +5,7 @@ import Button from '@/components/system/Button';
 import { css, cva } from '@styled-system/css';
 
 export interface TestTagItem {
-  name: string;
+  name?: string;
   isText?: boolean;
   onClick?: () => void;
   className?: string;
@@ -26,7 +26,7 @@ function TagItem({ name, isText, onClick, className = '' }: TestTagItem) {
   return (
     <Button
       className={className}
-      href={`?tag=${name}`}
+      href={`/?tag=${name}`}
       variant="solidTag"
       size="sm"
     >

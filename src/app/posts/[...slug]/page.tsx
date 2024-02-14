@@ -2,6 +2,8 @@ import { getPostBySlug, getPosts } from '@/lib/api/post';
 import { Post } from '@/lib/api/types';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { css } from '@styled-system/css';
+import ViewContainer from '@/components/post/ViewContainer';
 
 export const runtime = 'nodejs';
 
@@ -57,7 +59,18 @@ async function PostPage({ params }: Props) {
     return notFound();
   }
 
-  return <div>{post.title}</div>;
+  return <ViewContainer post={post} />;
 }
+
+const postBlock = css({
+  display: 'flex',
+  gap: 0,
+  mt: '1.5rem',
+  md: {
+    gap: '2.5rem',
+    mt: '3.5rem',
+    px: 0,
+  },
+});
 
 export default PostPage;

@@ -22,7 +22,7 @@ function Layout({ children, isAdmin }: Props) {
   return (
     <div className={rootBlock}>
       <Header isAdmin={isAdmin} />
-      <div className={mainBlock}>{children}</div>
+      <main className={mainBlock}>{children}</main>
       <Footer />
     </div>
   );

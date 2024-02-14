@@ -185,10 +185,70 @@ export class PostService {
       };
     }
 
+    const [prevPost, nextPost] = await this.getPrevOrNextPost(post.id);
+
     return {
       error: '',
-      payload: post,
+      payload: {
+        ...post,
+        prevPost,
+        nextPost,
+      },
     };
+  }
+
+  private async getPrevOrNextPost(postId: number) {
+    if (!postId) {
+      return [null, null];
+    }
+
+    const select: PostSelect = {
+      id: true,
+      title: true,
+      urlSlug: true,
+      createdAt: true,
+    };
+
+    const currentPost = await db.post.findUnique({
+      where: {
+        id: postId,
+      },
+      select,
+    });
+
+    if (!currentPost) {
+      return [null, null];
+    }
+
+    const prevPost = await db.post.findFirst({
+      where: {
+        isTemp: false,
+        deletedAt: null,
+        createdAt: {
+          lt: currentPost.createdAt,
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      select,
+    });
+
+    const nextPost = await db.post.findFirst({
+      where: {
+        isTemp: false,
+        deletedAt: null,
+        createdAt: {
+          gt: currentPost.createdAt,
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      select,
+    });
+
+    return [prevPost, nextPost];
   }
 
   public async getPosts({

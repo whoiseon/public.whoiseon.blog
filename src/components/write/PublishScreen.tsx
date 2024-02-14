@@ -46,13 +46,13 @@ function PublishScreen({ visible, onClose }: Props) {
       tags: post.tags,
       body: post.body,
       description: descriptionValue,
-      isTemp: post.isTemp,
+      isTemp: false,
       thumbnail: image,
       urlSlug: post.urlSlug,
     });
 
     if (response.payload.postId) {
-      router.push(`/post/${post.urlSlug}`);
+      router.push(`/`);
       return;
     }
 

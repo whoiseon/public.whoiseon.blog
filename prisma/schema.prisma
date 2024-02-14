@@ -31,7 +31,7 @@ model Post {
   id          Int       @id @default(autoincrement())
   title       String
   urlSlug     String?
-  body        String?
+  body        String?   @db.Text
   description String?
   thumbnail   String?
   isTemp      Boolean   @default(false)

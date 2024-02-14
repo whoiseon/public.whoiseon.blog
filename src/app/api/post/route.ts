@@ -4,7 +4,7 @@ import { PostService, PostWriteParams } from '@/services/post.service';
 export async function POST(req: NextRequest, res: NextResponse) {
   const postService = new PostService();
   const body = (await req.json()) as PostWriteParams;
-
+  console.log(body);
   return NextResponse.json(
     {
       ...(await postService.postWrite(body)),

@@ -93,19 +93,19 @@ export default defineConfig({
         destructive1: {
           value: {
             _light: 'rgb(255, 102, 102)',
-            _dark: 'rgb(200, 68, 68)',
+            _dark: 'rgb(255, 102, 102)',
           },
         },
         destructive2: {
           value: {
             _light: 'rgb(236,90,90)',
-            _dark: 'rgb(208,95,95)',
+            _dark: 'rgb(236,90,90)',
           },
         },
         destructive3: {
           value: {
             _light: 'rgb(208,90,90)',
-            _dark: 'rgb(175,59,59)',
+            _dark: 'rgb(208,90,90)',
           },
         },
         text_reverse: {
@@ -202,6 +202,12 @@ export default defineConfig({
           value: {
             _light: '#fdfdfd',
             _dark: '#121214',
+          },
+        },
+        bg_element0: {
+          value: {
+            _light: '{colors.zinc.50}',
+            _dark: '#1F1F23',
           },
         },
         bg_element1: {

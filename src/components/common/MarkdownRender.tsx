@@ -16,6 +16,7 @@ import stringify from 'rehype-stringify';
 import slug from 'rehype-slug';
 import { throttle } from 'throttle-debounce';
 import parse from 'html-react-parser';
+import { setHeadingId } from '@/lib/heading';
 
 function strikeThrough(htmlString: string) {
   return htmlString.replace(/~~(.*?)~~/g, '<del>$1</del>');
@@ -97,11 +98,12 @@ function filter(html: string) {
 type RenderedElement = string | React.JSX.Element | React.JSX.Element[];
 
 interface Props {
-  markdown: string;
+  markdown?: string;
   editing?: boolean;
+  className?: string;
 }
 
-function MarkdownRender({ markdown, editing }: Props) {
+function MarkdownRender({ markdown, editing, className }: Props) {
   const [html, setHtml] = useState(
     filter(
       remark()
@@ -118,6 +120,7 @@ function MarkdownRender({ markdown, editing }: Props) {
         .toString(),
     ),
   );
+
   const [hasTagError, setHasTagError] = useState(false);
   const [element, setElement] = useState<RenderedElement | null>(null);
   const [delay, setDelay] = useState(25);
@@ -145,7 +148,7 @@ function MarkdownRender({ markdown, editing }: Props) {
             setDelay(nextDelay);
           }
 
-          const html = strikeThrough(String(file));
+          const html = setHeadingId(strikeThrough(String(file)));
 
           if (!editing) {
             setHtml(filter(html));
@@ -161,7 +164,7 @@ function MarkdownRender({ markdown, editing }: Props) {
   }, [delay, editing]);
 
   useEffect(() => {
-    throttledUpdate(markdown);
+    throttledUpdate(markdown as string);
   }, [markdown, throttledUpdate]);
 
   return (
@@ -175,8 +178,9 @@ function MarkdownRender({ markdown, editing }: Props) {
         </MarkdownRenderErrorBoundary>
       ) : (
         <div
-          className={markdownRenderBlock}
-          dangerouslySetInnerHTML={{ __html: html }}
+          suppressHydrationWarning
+          className={`${markdownRenderBlock} ${className ? className : ''}`}
+          dangerouslySetInnerHTML={{ __html: setHeadingId(html) }}
         />
       )}
     </Typography>
@@ -197,6 +201,9 @@ const markdownRenderBlockStyle = css.raw({
     md: {
       fontSize: '0.875rem',
       padding: '1rem',
+    },
+    '& code': {
+      bg: 'none !important',
     },
   },
 

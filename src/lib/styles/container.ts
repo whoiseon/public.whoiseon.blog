@@ -2,7 +2,7 @@ import { css } from '@styled-system/css';
 
 const containerStyle = {
   position: 'relative',
-  maxWidth: '5xl',
+  maxWidth: '1080px',
   mx: 'auto',
   md: {
     px: '6',
