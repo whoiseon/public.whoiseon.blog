@@ -103,11 +103,13 @@ function ViewContainer({ post }: Props) {
               alignItems: 'center',
               justifyContent: 'space-between',
               px: '1rem',
+              gap: '1rem',
               md: {
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 px: 0,
+                gap: 0,
               },
             })}
           >

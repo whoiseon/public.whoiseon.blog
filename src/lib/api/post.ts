@@ -34,6 +34,7 @@ export async function getPostBySlug(slug: string) {
       `${process.env.NEXT_PUBLIC_API_HOST}/api/post/slug/${slug}`,
       {
         method: 'GET',
+        cache: 'no-store',
       },
     );
 
